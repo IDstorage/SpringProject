@@ -1,4 +1,6 @@
-﻿  Spring_GColorShader.cpp
+﻿  compilation object save succeeded; see C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring_SHColorPixelShader.cso
+  compilation object save succeeded; see C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring_SHColorVertexShader.cso
+  Spring_GColorShader.cpp
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(12,1): warning C4005:  'DXGI_STATUS_OCCLUDED': 매크로 재정의
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55460): message :  'DXGI_STATUS_OCCLUDED'의 이전 정의를 참조하십시오.
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(13,1): warning C4005:  'DXGI_STATUS_CLIPPED': 매크로 재정의
@@ -54,9 +56,8 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1): warning C4005:  'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': 매크로 재정의
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55899): message :  'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'의 이전 정의를 참조하십시오.
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005:  'D3D10_ERROR_FILE_NOT_FOUND': 매크로 재정의
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message :  'D3D10_ERROR_FILE_NOT_FOUND'의 이전 정의를 참조하십시오.
   Spring_GD3DClass.cpp
-C:\Users\Minjong\Desktop\SpringProject\Spring\Spring\Spring_GColorShader.cpp(22,1): error C3861:  'D3DCompileFormFile': 식별자를 찾을 수 없습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message :  'D3D10_ERROR_FILE_NOT_FOUND'의 이전 정의를 참조하십시오.
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(12,1): warning C4005:  'DXGI_STATUS_OCCLUDED': 매크로 재정의
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55460): message :  'DXGI_STATUS_OCCLUDED'의 이전 정의를 참조하십시오.
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(13,1): warning C4005:  'DXGI_STATUS_CLIPPED': 매크로 재정의
@@ -169,6 +170,9 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1): warning C4005:  'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': 매크로 재정의
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55899): message :  'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'의 이전 정의를 참조하십시오.
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005:  'D3D10_ERROR_FILE_NOT_FOUND': 매크로 재정의
+  Spring_ULayer.cpp
+  Spring_UObject.cpp
+  Spring_UScene.cpp
   Spring.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message :  'D3D10_ERROR_FILE_NOT_FOUND'의 이전 정의를 참조하십시오.
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dxgitype.h(12,1): warning C4005:  'DXGI_STATUS_OCCLUDED': 매크로 재정의
@@ -226,5 +230,18 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(608,1): warning C4005:  'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS': 매크로 재정의
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55899): message :  'D3D10_ERROR_TOO_MANY_UNIQUE_STATE_OBJECTS'의 이전 정의를 참조하십시오.
 C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3d10.h(609,1): warning C4005:  'D3D10_ERROR_FILE_NOT_FOUND': 매크로 재정의
+  Spring_FVector2.cpp
   코드를 생성하고 있습니다...
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message :  'D3D10_ERROR_FILE_NOT_FOUND'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(21) : warning C4172: 지역 변수 또는 임시: newV의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(36) : warning C4172: 지역 변수 또는 임시: newV의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(41) : warning C4172: 지역 변수 또는 임시: newV의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(46) : warning C4172: 지역 변수 또는 임시: newV의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(31) : warning C4172: 지역 변수 또는 임시: newV의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(56) : warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(61) : warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(26) : warning C4172: 지역 변수 또는 임시: newV의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(75) : warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_FVector2.cpp(66) : warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\shared\winerror.h(55908): message : C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GColorShader.cpp(85) : warning C4715: 'spring::GColorShader::Initialize': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  Spring.vcxproj -> C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring.exe
