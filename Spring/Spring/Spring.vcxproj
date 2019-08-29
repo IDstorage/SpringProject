@@ -153,21 +153,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Spring.h" />
     <ClInclude Include="Spring_FMath.h" />
+    <ClInclude Include="Spring_FMatrix4x4.h" />
+    <ClInclude Include="Spring_FVector2.h" />
     <ClInclude Include="Spring_GColorShader.h" />
     <ClInclude Include="Spring_GD3DClass.h" />
     <ClInclude Include="Spring_GDX11Header.h" />
-    <ClInclude Include="Spring_HPreHeader.h" />
-    <ClInclude Include="Spring_UGameEngine.h" />
-    <ClInclude Include="Spring_UFrameworks.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="Spring.h" />
-    <ClInclude Include="Spring_FMatrix4x4.h" />
-    <ClInclude Include="Spring_IPointer.h" />
-    <ClInclude Include="Spring_HPreDef.h" />
-    <ClInclude Include="Spring_IProperty.h" />
-    <ClInclude Include="Spring_FVector2.h" />
     <ClInclude Include="Spring_GRenderSystem.h" />
+    <ClInclude Include="Spring_HPreDef.h" />
+    <ClInclude Include="Spring_HPreHeader.h" />
+    <ClInclude Include="Spring_IPointer.h" />
+    <ClInclude Include="Spring_IProperty.h" />
+    <ClInclude Include="Spring_UFrameworks.h" />
+    <ClInclude Include="Spring_UGameEngine.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

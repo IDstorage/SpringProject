@@ -30,25 +30,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Spring_GColorShader.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Spring_GD3DClass.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Spring_GDX11Header.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Spring.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Spring_GRenderSystem.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_FVector2.h">
+    <ClInclude Include="Spring_FMath.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
     <ClInclude Include="Spring_FMatrix4x4.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_FMath.h">
+    <ClInclude Include="Spring_FVector2.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_HPreDef.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_HPreHeader.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
     <ClInclude Include="Spring_IPointer.h">
@@ -63,23 +69,17 @@
     <ClInclude Include="Spring_UGameEngine.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_GRenderSystem.h">
-      <Filter>헤더 파일\Spring\Rendering</Filter>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_GD3DClass.h">
-      <Filter>헤더 파일\Spring\Rendering</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_GColorShader.h">
-      <Filter>헤더 파일\Spring\Rendering</Filter>
+    <ClInclude Include="Spring.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_GDX11Header.h">
-      <Filter>헤더 파일\Spring\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Spring_HPreHeader.h">
-      <Filter>헤더 파일\Spring</Filter>
-    </ClInclude>
-    <ClInclude Include="Spring_HPreDef.h">
-      <Filter>헤더 파일\Spring</Filter>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

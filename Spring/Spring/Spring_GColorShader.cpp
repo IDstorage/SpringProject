@@ -84,5 +84,91 @@ bool GColorShader::Initialize(ID3D11Device* device, HWND hWnd) {
 	if (FAILED(device->CreateInputLayout(polygonLayout, numElements, vertShBuffer->GetBufferPointer(), vertShBuffer->GetBufferSize(), &instance->inputLayout)))
 		return false;
 
+	vertShBuffer->Release();
+	vertShBuffer = nullptr;
 
+	pixelShBuffer->Release();
+	pixelShBuffer = nullptr;
+
+	// 정점 쉐이더에 있는 행렬 상수 버퍼의 구조체 작성
+	D3D11_BUFFER_DESC matrixBufferDesc;
+	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	matrixBufferDesc.ByteWidth = sizeof(MatrixBufferType);
+	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	matrixBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	matrixBufferDesc.MiscFlags = 0;
+	matrixBufferDesc.StructureByteStride = 0;
+
+	if (FAILED(device->CreateBuffer(&matrixBufferDesc, NULL, &instance->matrixBuffer)))
+		return false;
+
+	return true;
+}
+
+void GColorShader::ShutdownShader() {
+
+	auto ReleaseFunc = [&](IUnknown* target) {
+		if (target) {
+			target->Release();
+			target = nullptr;
+		}
+	};
+
+	ReleaseFunc(instance->matrixBuffer);
+
+	ReleaseFunc(instance->inputLayout);
+
+	ReleaseFunc(instance->pixelShader);
+
+	ReleaseFunc(instance->vertexShader);
+
+}
+
+
+bool GColorShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat) {
+	// 행렬을 Transpose하여 쉐이더에서 사용가능하도록 함
+	worldMat = XMMatrixTranspose(worldMat);
+	viewMat = XMMatrixTranspose(viewMat);
+	projectionMat = XMMatrixTranspose(projectionMat);
+
+	// 상수 버퍼의 내용을 쓸 수 있도록 잠금
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	if (FAILED(deviceContext->Map(instance->matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource)))
+		return false;
+
+	// 상수 버퍼의 데이터에 대한 포인터
+	MatrixBufferType* dataPtr = (MatrixBufferType*)mappedResource.pData;
+
+	// 상수 버퍼에 행렬 복사
+	dataPtr->world = worldMat;
+	dataPtr->view = viewMat;
+	dataPtr->projection = projectionMat;
+
+	// 상수 버퍼의 잠금을 품
+	deviceContext->Unmap(instance->matrixBuffer, 0);
+
+	// 정점 쉐이더에서의 상수 버퍼 위치 설정
+	unsigned bufferNumber = 0;
+
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &instance->matrixBuffer);
+
+	return true;
+}
+
+bool GColorShader::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat, int indexCount) {
+
+	if (!instance->SetShaderParameters(deviceContext, worldMat, viewMat, projectionMat))
+		return false;
+
+	// 정점 입력 레이아웃 설정
+	deviceContext->IASetInputLayout(instance->inputLayout);
+
+	// 쉐이더 설정
+	deviceContext->VSSetShader(instance->vertexShader, NULL, 0);
+	deviceContext->PSSetShader(instance->pixelShader, NULL, 0);
+
+	// 그리기
+	deviceContext->DrawIndexed(indexCount, 0, 0);
+
+	return true;
 }
