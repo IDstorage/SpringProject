@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일\Spring">
+      <UniqueIdentifier>{9aee17a9-9882-4920-9343-f30024e3492f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Spring">
+      <UniqueIdentifier>{4603ecb9-777b-4cba-92fb-2c09f7d01212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Spring\Rendering">
+      <UniqueIdentifier>{8e3be74e-347d-4c48-9285-02ac79698a61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Spring\Rendering">
+      <UniqueIdentifier>{6934ae47-fd24-47c4-8e93-ffb1a6dc457f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Spring\Rendering\Shader">
+      <UniqueIdentifier>{da83b33d-8210-4079-812d-63b69689424a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FVector2.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FMatrix4x4.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FMath.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_IPointer.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_IProperty.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_UFrameworks.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_UGameEngine.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_GRenderSystem.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_GD3DClass.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_GColorShader.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_GDX11Header.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_HPreHeader.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_HPreDef.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Spring.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_UObject.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_UScene.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_FVector2.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_ULayer.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_GD3DClass.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_GRenderSystem.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_GColorShader.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Spring.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Spring.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="bitmap1.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Spring_SHColorVertexShader.hlsl">
+      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Spring_SHColorPixelShader.hlsl">
+      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
