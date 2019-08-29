@@ -171,16 +171,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Spring_GColorShader.cpp" />
-    <ClCompile Include="Spring_GD3DClass.cpp" />
-    <ClCompile Include="Spring_GRenderSystem.cpp" />
-    <ClCompile Include="Spring_ULayer.cpp" />
-    <ClCompile Include="Spring_UObject.cpp" />
-    <ClCompile Include="Spring_UScene.cpp" />
-    <ClCompile Include="Spring.cpp" />
-    <ClCompile Include="Spring_FVector2.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Spring.rc" />
   </ItemGroup>
   <ItemGroup>
@@ -189,18 +179,19 @@
     <Image Include="Spring.ico" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Spring_SHColorPixelShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
+    <FxCompile Include="Spring_SHColorPixelShader.hlsl" />
     <FxCompile Include="Spring_SHColorVertexShader.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <DeploymentContent>false</DeploymentContent>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Spring_FVector2.cpp" />
+    <ClCompile Include="Spring_GColorShader.cpp" />
+    <ClCompile Include="Spring_GD3DClass.cpp" />
+    <ClCompile Include="Spring_GRenderSystem.cpp" />
+    <ClCompile Include="Spring_ULayer.cpp" />
+    <ClCompile Include="Spring_UObject.cpp" />
+    <ClCompile Include="Spring_UScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

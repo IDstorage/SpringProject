@@ -83,32 +83,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Spring.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Spring_UObject.cpp">
-      <Filter>소스 파일\Spring</Filter>
-    </ClCompile>
-    <ClCompile Include="Spring_UScene.cpp">
-      <Filter>소스 파일\Spring</Filter>
-    </ClCompile>
-    <ClCompile Include="Spring_FVector2.cpp">
-      <Filter>소스 파일\Spring</Filter>
-    </ClCompile>
-    <ClCompile Include="Spring_ULayer.cpp">
-      <Filter>소스 파일\Spring</Filter>
-    </ClCompile>
-    <ClCompile Include="Spring_GD3DClass.cpp">
-      <Filter>소스 파일\Spring\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Spring_GRenderSystem.cpp">
-      <Filter>소스 파일\Spring\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Spring_GColorShader.cpp">
-      <Filter>소스 파일\Spring\Rendering</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Spring.rc">
       <Filter>리소스 파일</Filter>
     </ResourceCompile>
@@ -125,11 +99,34 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Spring_SHColorVertexShader.hlsl">
-      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
-    </FxCompile>
     <FxCompile Include="Spring_SHColorPixelShader.hlsl">
       <Filter>소스 파일\Spring\Rendering\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Spring_SHColorVertexShader.hlsl">
+      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Spring_GColorShader.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_GD3DClass.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_GRenderSystem.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_FVector2.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_ULayer.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_UObject.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_UScene.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

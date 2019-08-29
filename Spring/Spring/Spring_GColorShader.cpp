@@ -81,5 +81,8 @@ bool GColorShader::Initialize(ID3D11Device* device, HWND hWnd) {
 	// 레이아웃 요소의 수
 	size_t numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
+	if (FAILED(device->CreateInputLayout(polygonLayout, numElements, vertShBuffer->GetBufferPointer(), vertShBuffer->GetBufferSize(), &instance->inputLayout)))
+		return false;
+
 
 }
