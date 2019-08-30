@@ -4,6 +4,8 @@
 
 namespace spring {
 
+	class URef;
+
 	template <class _Typ>
 	class IPointer {
 
@@ -11,19 +13,19 @@ namespace spring {
 		IPointer() = default;
 		IPointer(_Typ* obj) {
 			this->object = obj;
-			this->object->refCount++;
+			this->object->PlusRefCount(1);
 		}
 		IPointer(const _Typ& obj) {
 			this->object = &obj;
-			this->object->refCount++;
+			this->object->PlusRefCount(1);
 		}
 		IPointer(_Typ** obj) {
 			this->object = *obj;
-			this->object->refCount++;
+			this->object->PlusRefCount(1);
 		}
 		IPointer(const IPointer<_Typ>& ptr) {
 			this->object = ptr.object;
-			this->object->refCount++;
+			this->object->PlusRefCount(1);
 		}
 		IPointer(std::nullptr_t nptr) {
 			this->object = nullptr;
@@ -40,36 +42,37 @@ namespace spring {
 			if (object == nullptr)
 				return;
 
-			if (--object->refCount == 0) {
-				int a = 0;
+			object->PlusRefCount(-1);
+
+			if (object->IsNoRef()) {
 				delete object;
 			}
 		}
 
 	private:
-		_Typ* object = nullptr;
+		URef* object = nullptr;
 
 	public:
 		IPointer<_Typ>& operator=(_Typ* obj) {
 			this->object = obj;
-			obj->refCount++;
+			obj->PlusRefCount(1);
 			return *this;
 		}
 		IPointer<_Typ>& operator=(const IPointer<_Typ>& ptr) {
 			this->object = ptr.object;
-			object->refCount++;
+			object->PlusRefCount(1);
 			return *this;
 		}
 
 		_Typ& operator*() {
-			return *object;
+			return *reinterpret_cast<_Typ*>(object);
 		}
 		_Typ* operator->() {
-			return object;
+			return reinterpret_cast<_Typ*>(object);
 		}
 
 		_Typ* Get() {
-			return object;
+			return reinterpret_cast<_Typ*>(object);
 		}
 
 	public:

@@ -3,7 +3,7 @@
 using namespace spring;
 
 
-const std::string& UScene::GetUSceneName() const {
+const std::string& UScene::GetSceneName() const {
 	return sceneName;
 }
 
@@ -21,17 +21,17 @@ void UScene::Release() {
 }
 
 
-bool UScene::AddULayer(IPointer<ULayer> layer) {
-	if (childTree.find(layer->GetULayerName()) == childTree.end())
+bool UScene::AddLayer(IPointer<ULayer> layer) {
+	if (childTree.find(layer->GetLayerName()) == childTree.end())
 		return false;
 
-	childTree[layer->GetULayerName()] = IPointer<ULayer>(layer);
+	childTree[layer->GetLayerName()] = IPointer<ULayer>(layer);
 	return true;
 }
 
 
-bool UScene::RemoveULayer(IPointer<ULayer> layer, bool cleanUp) {
-	auto removeTarget = childTree.find(layer->GetULayerName());
+bool UScene::RemoveLayer(IPointer<ULayer> layer, bool cleanUp) {
+	auto removeTarget = childTree.find(layer->GetLayerName());
 
 	if (removeTarget == childTree.end())
 		return false;
@@ -40,11 +40,11 @@ bool UScene::RemoveULayer(IPointer<ULayer> layer, bool cleanUp) {
 		// TODO: ERASE
 	}
 
-	childTree.erase(layer->GetULayerName());
+	childTree.erase(layer->GetLayerName());
 	return true;
 }
 
-bool UScene::RemoveULayer(const std::string& name, bool cleanUp) {
+bool UScene::RemoveLayer(const std::string& name, bool cleanUp) {
 	auto removeTarget = childTree.find(name);
 
 	if (removeTarget == childTree.end())
@@ -59,7 +59,7 @@ bool UScene::RemoveULayer(const std::string& name, bool cleanUp) {
 }
 
 
-IPointer<ULayer> UScene::GetChildULayer(const std::string& name) {
+IPointer<ULayer> UScene::GetChildLayer(const std::string& name) {
 	auto findTarget = childTree.find(name);
 
 	if (findTarget == childTree.end())

@@ -10,7 +10,7 @@ UObject* UObject::Create(const std::string& name) {
 }
 
 
-const std::string& UObject::GetUObjectName() const {
+const std::string& UObject::GetObjectName() const {
 	return objectName;
 }
 
@@ -19,21 +19,9 @@ void UObject::Init() {
 
 }
 
-void UObject::BeginUpdate() {
-	for (auto childIter = childTree.begin(); childIter != childTree.end(); ++childIter) {
-		childIter->second.Get()->BeginUpdate();
-	}
-}
-
 void UObject::Update() {
 	for (auto childIter = childTree.begin(); childIter != childTree.end(); ++childIter) {
 		childIter->second.Get()->Update();
-	}
-}
-
-void UObject::EndUpdate() {
-	for (auto childIter = childTree.begin(); childIter != childTree.end(); ++childIter) {
-		childIter->second.Get()->EndUpdate();
 	}
 }
 
@@ -49,35 +37,27 @@ void UObject::Release() {
 	}
 }
 
-void UObject::OnEnable() {
-
-}
-
-void UObject::OnDisable() {
-
-}
-
 
 void UObject::SetParent(IPointer<ULayer> newParent) {
-	if (parentULayer.IsNull()) {
-		parentULayer->RemoveUObject(this, false);
+	if (parentLayer.IsNull()) {
+		parentLayer->RemoveObject(this, false);
 	}
-	parentULayer = newParent;
+	parentLayer = newParent;
 }
 
 void UObject::SetParent(IPointer<UObject> newParent) {
-	if (parentUObject.IsNull()) {
-		parentUObject->RemoveUObject(this, false);
+	if (parentObject.IsNull()) {
+		parentObject->RemoveObject(this, false);
 	}
-	parentUObject = newParent;
+	parentObject = newParent;
 }
 
-IPointer<ULayer> UObject::GetParentULayer() {
-	return parentULayer;
+IPointer<ULayer> UObject::GetParentLayer() {
+	return parentLayer;
 }
 
-IPointer<UObject> UObject::GetParentUObject() {
-	return parentUObject;
+IPointer<UObject> UObject::GetParentObject() {
+	return parentObject;
 }
 
 
@@ -90,18 +70,18 @@ bool UObject::ShouldRender() const {
 }
 
 
-bool UObject::AddUObject(IPointer<UObject> object) {
-	if (childTree.find(object->GetUObjectName()) == childTree.end())
+bool UObject::AddObject(IPointer<UObject> object) {
+	if (childTree.find(object->GetObjectName()) == childTree.end())
 		return false;
 
-	childTree[object->GetUObjectName()] = IPointer<UObject>(object);
-	childTree[object->GetUObjectName()]->SetParent(this);
+	childTree[object->GetObjectName()] = IPointer<UObject>(object);
+	childTree[object->GetObjectName()]->SetParent(this);
 	return true;
 }
 
 
-bool UObject::RemoveUObject(IPointer<UObject> object, bool cleanUp) {
-	auto removeTarget = childTree.find(object->GetUObjectName());
+bool UObject::RemoveObject(IPointer<UObject> object, bool cleanUp) {
+	auto removeTarget = childTree.find(object->GetObjectName());
 
 	if (removeTarget == childTree.end())
 		return false;
@@ -110,11 +90,11 @@ bool UObject::RemoveUObject(IPointer<UObject> object, bool cleanUp) {
 		// TODO: ERASE
 	}
 
-	childTree.erase(object->GetUObjectName());
+	childTree.erase(object->GetObjectName());
 	return true;
 }
 
-bool UObject::RemoveUObject(const std::string& name, bool cleanUp) {
+bool UObject::RemoveObject(const std::string& name, bool cleanUp) {
 	auto removeTarget = childTree.find(name);
 
 	if (removeTarget == childTree.end())
@@ -129,7 +109,7 @@ bool UObject::RemoveUObject(const std::string& name, bool cleanUp) {
 }
 
 
-IPointer<UObject> UObject::GetChildUObject(const std::string& name) {
+IPointer<UObject> UObject::GetChildObject(const std::string& name) {
 	auto findTarget = childTree.find(name);
 
 	if (findTarget == childTree.end())

@@ -4,7 +4,6 @@
 #include "Spring_HPreHeader.h"
 #include "Spring_HPreDef.h"
 
-
 namespace spring {
 
 	template <class _Typ>
@@ -13,7 +12,27 @@ namespace spring {
 	class UObject;
 	class ULayer;
 
-	class UScene {
+
+	class URef {
+
+	protected:
+		int refCount = 0;
+
+	public:
+		void PlusRefCount(int n) {
+			refCount += n;
+			if (refCount < 0)
+				refCount = 0;
+		}
+
+		bool IsNoRef() const {
+			return refCount == 0;
+		}
+
+	};
+
+
+	class UScene : public URef {
 
 	protected:
 		UScene() = default;
@@ -23,14 +42,10 @@ namespace spring {
 		STATIC_CREATE_FUNC(UScene);
 
 	protected:
-		friend class IPointer<UScene>;
-		int refCount = 0;
-
-	protected:
 		const std::string& sceneName = "";
 
 	public:
-		const std::string& GetUSceneName() const;
+		const std::string& GetSceneName() const;
 
 	public:
 		virtual void Init() = 0;
@@ -43,18 +58,18 @@ namespace spring {
 		std::map<std::string, IPointer<ULayer>> childTree;
 
 	public:
-		bool AddULayer(IPointer<ULayer>);
+		bool AddLayer(IPointer<ULayer>);
 
-		bool RemoveULayer(IPointer<ULayer>, bool = true);
-		bool RemoveULayer(const std::string&, bool = true);
+		bool RemoveLayer(IPointer<ULayer>, bool = true);
+		bool RemoveLayer(const std::string&, bool = true);
 
-		IPointer<ULayer> GetChildULayer(const std::string&);
+		IPointer<ULayer> GetChildLayer(const std::string&);
 		std::map<std::string, IPointer<ULayer>> GetChildTree() const;
 
 	};
 
 
-	class ULayer {
+	class ULayer : public URef {
 
 	protected:
 		ULayer() = default;
@@ -64,14 +79,10 @@ namespace spring {
 		STATIC_CREATE_FUNC(ULayer);
 
 	protected:
-		friend class IPointer<ULayer>;
-		int refCount = 0;
-
-	protected:
 		const std::string& layerName = "";
 
 	public:
-		const std::string& GetULayerName() const;
+		const std::string& GetLayerName() const;
 
 	public:
 		virtual void Init() = 0;
@@ -96,18 +107,18 @@ namespace spring {
 		std::map<std::string, IPointer<UObject>> childTree;
 
 	public:
-		bool AddUObject(IPointer<UObject>);
+		bool AddObject(IPointer<UObject>);
 
-		bool RemoveUObject(IPointer<UObject>, bool = true);
-		bool RemoveUObject(const std::string&, bool = true);
+		bool RemoveObject(IPointer<UObject>, bool = true);
+		bool RemoveObject(const std::string&, bool = true);
 
-		IPointer<UObject> GetChildUObject(const std::string&);
+		IPointer<UObject> GetChildObject(const std::string&);
 		std::map<std::string, IPointer<UObject>> GetChildTree() const;
 
 	};
 
 
-	class UObject {
+	class UObject : public URef {
 
 	protected:
 		UObject() = default;
@@ -117,14 +128,63 @@ namespace spring {
 		STATIC_CREATE_FUNC(UObject);
 
 	protected:
-		friend class IPointer<UObject>;
-		int refCount = 0;
-
-	protected:
 		std::string objectName = "";
 
 	public:
-		const std::string& GetUObjectName() const;
+		const std::string& GetObjectName() const;
+
+	public:
+		virtual void Init();
+		virtual void Update();
+		virtual void Render() final;
+		virtual void Release();
+
+	protected:
+		IPointer<ULayer> parentLayer;
+		IPointer<UObject> parentObject;
+
+	public:
+		void SetParent(IPointer<ULayer>);
+		void SetParent(IPointer<UObject>);
+		IPointer<ULayer> GetParentLayer();
+		IPointer<UObject> GetParentObject();
+
+	protected:
+		bool shouldRender;
+
+	public:
+		void SetShouldRender(bool);
+		bool ShouldRender() const;
+
+	protected:
+		std::map<std::string, IPointer<UObject>> childTree;
+
+	public:
+		bool AddObject(IPointer<UObject>);
+
+		bool RemoveObject(IPointer<UObject>, bool = true);
+		bool RemoveObject(const std::string&, bool = true);
+
+		IPointer<UObject> GetChildObject(const std::string&);
+		std::map<std::string, IPointer<UObject>> GetChildTree() const;
+
+	};
+
+
+	class UComponent : public URef {
+
+	protected:
+		UComponent() = default;
+		~UComponent() = default;
+
+	public:
+		STATIC_CREATE_FUNC(UComponent);
+
+	protected:
+		std::string componentName = "";
+
+	public:
+		const std::string& GetComponentName() const;
 
 	public:
 		virtual void Init();
@@ -141,34 +201,11 @@ namespace spring {
 		virtual void OnDisable();
 
 	protected:
-		IPointer<ULayer> parentULayer;
-		IPointer<UObject> parentUObject;
+		IPointer<UObject> parentObject;
 
 	public:
-		void SetParent(IPointer<ULayer>);
 		void SetParent(IPointer<UObject>);
-		IPointer<ULayer> GetParentULayer();
-		IPointer<UObject> GetParentUObject();
-
-	protected:
-		bool shouldRender;
-
-	public:
-		void SetShouldRender(bool);
-		bool ShouldRender() const;
-
-	protected:
-		std::map<std::string, IPointer<UObject>> childTree;
-
-	public:
-		bool AddUObject(IPointer<UObject>);
-
-		bool RemoveUObject(IPointer<UObject>, bool = true);
-		bool RemoveUObject(const std::string&, bool = true);
-
-		IPointer<UObject> GetChildUObject(const std::string&);
-		std::map<std::string, IPointer<UObject>> GetChildTree() const;
-
+		IPointer<UObject> GetParentObject();
 	};
 
 }

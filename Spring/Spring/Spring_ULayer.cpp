@@ -3,22 +3,14 @@
 using namespace spring;
 
 
-const std::string& ULayer::GetULayerName() const {
+const std::string& ULayer::GetLayerName() const {
 	return layerName;
 }
 
 
 void ULayer::Update() {
 	for (auto childIter = childTree.begin(); childIter != childTree.end(); ++childIter) {
-		childIter->second.Get()->BeginUpdate();
-	}
-
-	for (auto childIter = childTree.begin(); childIter != childTree.end(); ++childIter) {
 		childIter->second.Get()->Update();
-	}
-
-	for (auto childIter = childTree.begin(); childIter != childTree.end(); ++childIter) {
-		childIter->second.Get()->EndUpdate();
 	}
 }
 
@@ -33,7 +25,7 @@ void ULayer::Release() {
 
 void ULayer::SetParent(IPointer<UScene> newParent) {
 	if (parent.IsNull()) {
-		parent->RemoveULayer(this, false);
+		parent->RemoveLayer(this, false);
 	}
 	parent = newParent;
 }
@@ -43,18 +35,18 @@ IPointer<UScene> ULayer::GetParent() {
 }
 
 
-bool ULayer::AddUObject(IPointer<UObject> object) {
-	if (childTree.find(object->GetUObjectName()) == childTree.end())
+bool ULayer::AddObject(IPointer<UObject> object) {
+	if (childTree.find(object->GetObjectName()) == childTree.end())
 		return false;
 
-	childTree[object->GetUObjectName()] = IPointer<UObject>(object);
-	childTree[object->GetUObjectName()]->SetParent(this);
+	childTree[object->GetObjectName()] = IPointer<UObject>(object);
+	childTree[object->GetObjectName()]->SetParent(this);
 	return true;
 }
 
 
-bool ULayer::RemoveUObject(IPointer<UObject> object, bool cleanUp) {
-	auto removeTarget = childTree.find(object->GetUObjectName());
+bool ULayer::RemoveObject(IPointer<UObject> object, bool cleanUp) {
+	auto removeTarget = childTree.find(object->GetObjectName());
 
 	if (removeTarget == childTree.end())
 		return false;
@@ -63,11 +55,11 @@ bool ULayer::RemoveUObject(IPointer<UObject> object, bool cleanUp) {
 		// TODO: ERASE
 	}
 
-	childTree.erase(object->GetUObjectName());
+	childTree.erase(object->GetObjectName());
 	return true;
 }
 
-bool ULayer::RemoveUObject(const std::string& name, bool cleanUp) {
+bool ULayer::RemoveObject(const std::string& name, bool cleanUp) {
 	auto removeTarget = childTree.find(name);
 
 	if (removeTarget == childTree.end())
@@ -82,7 +74,7 @@ bool ULayer::RemoveUObject(const std::string& name, bool cleanUp) {
 }
 
 
-IPointer<UObject> ULayer::GetChildUObject(const std::string& name) {
+IPointer<UObject> ULayer::GetChildObject(const std::string& name) {
 	auto findTarget = childTree.find(name);
 
 	if (findTarget == childTree.end())

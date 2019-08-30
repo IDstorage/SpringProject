@@ -3,9 +3,11 @@
 
 #include "framework.h"
 #include "Spring.h"
-#include "Spring_UFrameworks.h"
 
+#include "Spring_UFrameworks.h"
 #include "Spring_GRenderSystem.h"
+
+using namespace std::chrono;
 
 #pragma warning(disable:4996)
 
@@ -24,59 +26,9 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 
-class TestUObject : public spring::UObject {
-	friend class spring::IPointer<TestUObject>;
+int frameCount = 0;
+std::chrono::system_clock::time_point prevTime;
 
-	int a = 0;
-public:
-	virtual void BeginUpdate() override {
-		for (int i = 0; i < 100000; i++) {
-			a += 2;
-			a -= 1;
-		}
-	}
-
-	virtual void Update() override {
-		for (int i = 0; i < 100000; i++) {
-			a -= 2;
-			a += 1;
-		}
-	}
-};
-#include <vector>
-class TestULayer : public spring::ULayer {
-
-	std::vector<spring::IPointer<TestUObject>> objList;
-
-public:
-	virtual void Init() override {
-		for (int i = 0; i < 100000; i++) {
-			this->AddUObject(spring::IPointer<spring::UObject>::Cast(spring::IPointer<TestUObject>(new TestUObject())));
-		}
-	}
-};
-
-class TestUScene : public spring::UScene {
-
-	//DEFAULT_CONSTRUCTOR(TestUScene);
-public:
-	TestUScene() = default;
-	~TestUScene() = default;
-
-	STATIC_CREATE_FUNC(TestUScene);
-
-	spring::ULayer* testULayer;
-
-public:
-	virtual void Init() override {
-		testULayer = new TestULayer();
-		this->AddULayer(testULayer);
-	}
-};
-
-TestUScene* TestUScene::Create(const std::string& name) {
-	return new TestUScene;
-}
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -103,11 +55,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-	//TestUScene* test = TestUScene::Create("DSA");
-	//test->Init();
-
 	spring::GRenderSystem::Initialize(640, 480, targetHWnd);
 	spring::GRenderSystem::FrameRender();
+
+	prevTime = system_clock::now();
 
     // 기본 메시지 루프입니다:
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -117,7 +68,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-		//test->Update();
     }
 
     return (int) msg.wParam;
@@ -220,8 +170,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
 
-			spring::GRenderSystem::Initialize(640, 480, hWnd);
-			spring::GRenderSystem::FrameRender();
+			//spring::GRenderSystem::Initialize(640, 480, hWnd);
+			//spring::GRenderSystem::FrameRender();
 
             EndPaint(hWnd, &ps);
         }

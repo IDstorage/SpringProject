@@ -126,6 +126,7 @@ void RemoveXXX(XXX*, bool = true);
 
 > 수학 관련 클래스 -> F  (ex. class FVector2;)
 > 프레임워크 관련 클래스 -> U  (ex. class UComponent;)
+> UComponent를 상속한 컴포넌트 클래스 -> C  (ex. class CTransform;)
 > 라이브러리 관련 클래스 -> I  (ex. class IProperty<...>;)
 > 그래픽스 관련 클래스 -> G  (ex. class GRenderSystem;)
 
