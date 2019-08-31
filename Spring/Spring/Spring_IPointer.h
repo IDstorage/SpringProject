@@ -54,7 +54,7 @@ namespace spring {
 
 	public:
 		IPointer<_Typ>& operator=(_Typ* obj) {
-			this->object = obj;
+			this->object = reinterpret_cast<URef*>(obj);
 			obj->PlusRefCount(1);
 			return *this;
 		}

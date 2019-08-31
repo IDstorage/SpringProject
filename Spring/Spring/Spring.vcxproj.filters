@@ -87,7 +87,7 @@
     <ClInclude Include="Spring_CTransform.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_CCamera.h">
+    <ClInclude Include="Spring_UCamera.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
   </ItemGroup>
@@ -106,14 +106,6 @@
     <Image Include="bitmap1.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Spring_SHColorPixelShader.hlsl">
-      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Spring_SHColorVertexShader.hlsl">
-      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
-    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Spring_GColorShader.cpp">
@@ -146,5 +138,22 @@
     <ClCompile Include="Spring_UComponent.cpp">
       <Filter>소스 파일\Spring</Filter>
     </ClCompile>
+    <ClCompile Include="Spring_UCamera.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_UGameEngine.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_FMatrix4x4.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Spring_SHColorPixelShader.hlsl">
+      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
+    </None>
+    <None Include="Spring_SHColorVertexShader.hlsl">
+      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

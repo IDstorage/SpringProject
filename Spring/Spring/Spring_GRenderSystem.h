@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Spring_GD3DClass.h"
+#include "Spring_G3DModel.h"
+
 #include "Spring_HPreDef.h"
 
 namespace spring {
@@ -22,6 +24,14 @@ namespace spring {
 		// About DX11
 	private:
 		GD3DClass* d3dClass;
+		G3DModel* testModel;
+
+		ID3D11Device* device;
+		ID3D11DeviceContext* deviceContext;
+		HWND hWnd;
+
+	public:
+		static void InitializeDX(ID3D11Device*, ID3D11DeviceContext*, HWND);
 
 	private:
 		void Render();

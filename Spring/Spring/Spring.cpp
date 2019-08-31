@@ -7,6 +7,10 @@
 #include "Spring_UFrameworks.h"
 #include "Spring_GRenderSystem.h"
 
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "D3DCompiler.lib")
+
 using namespace std::chrono;
 
 #pragma warning(disable:4996)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Spring_IPointer.h"
+#include "Spring_UCamera.h"
 #include "Spring_HPreDef.h"
 
 namespace spring {
@@ -9,6 +10,7 @@ namespace spring {
 	class IPointer;
 
 	class UScene;
+	class UCamera;
 
 	class UGameEngine {
 
@@ -33,6 +35,15 @@ namespace spring {
 
 	public:
 		static void ReplaceScene(IPointer<UScene>&);
+
+
+	private:
+		IPointer<UCamera> mainCamera;
+
+	public:
+		static void InitializeStandardCamera();
+		static void ChangeMainCamera(IPointer<UCamera>&);
+		static IPointer<UCamera> GetMainCamera();
 
 	};
 

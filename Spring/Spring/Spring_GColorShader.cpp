@@ -11,18 +11,22 @@ GColorShader::GColorShader()
 		inputLayout(nullptr), matrixBuffer(nullptr) {}
 
 
-bool GColorShader::Initialize(ID3D11Device* device, HWND hWnd) {
+bool GColorShader::Initialize(ID3D11Device* device, ID3D11DeviceContext* context, HWND hWnd) {
 
-	const WCHAR* vsFilePath = L"./Spring_SHColorVertexShader.hlsl",
-		* psFilePath = L".ne/Spring_SHColorPixelShader.hlsl";
+	if (instance == nullptr)
+		instance = new GColorShader();
+
+	instance->deviceContext = context;
+
+	const WCHAR* vsFilePath = L"./Spring_SHColorVertexShader.vs",
+		* psFilePath = L"./Spring_SHColorPixelShader.ps";
 
 	ID3D10Blob* errorMsg = nullptr;
 
 	// 버텍스 쉐이더 컴파일
 	ID3D10Blob* vertShBuffer = nullptr;
-	D3D_SHADER_MACRO* shaderMacro = new D3D_SHADER_MACRO{ "ColorVertexShader" };
-	if (FAILED(D3DCompile(vsFilePath, NULL, NULL, shaderMacro, (ID3DInclude*)(UINT_PTR)1,
-		(LPCSTR)NULL, (LPCSTR)D3D10_SHADER_ENABLE_STRICTNESS, 0, 0, &vertShBuffer, &errorMsg))) {
+	if (FAILED(D3DCompileFromFile(vsFilePath, NULL, NULL, "Spring_SHColorVertexShader", "vs_5_0",
+		D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertShBuffer, &errorMsg))) {
 
 		if (errorMsg) {
 			MessageBox(hWnd, reinterpret_cast<LPCTSTR>(errorMsg->GetBufferPointer()), L"Error while compile vertex shader", MB_OK);
@@ -37,9 +41,8 @@ bool GColorShader::Initialize(ID3D11Device* device, HWND hWnd) {
 
 	// 픽셀 쉐이더 컴파일
 	ID3D10Blob* pixelShBuffer = nullptr;
-	shaderMacro = new D3D_SHADER_MACRO{ "ColorPixelShader" };
-	if (FAILED(D3DCompile(psFilePath, NULL, NULL, shaderMacro, (ID3DInclude*)(UINT_PTR)1,
-		(LPCSTR)NULL, (LPCSTR)D3D10_SHADER_ENABLE_STRICTNESS, 0, 0, &pixelShBuffer, &errorMsg))) {
+	if (FAILED(D3DCompileFromFile(psFilePath, NULL, NULL, "Spring_SHColorPixelShader", "ps_5_0",
+		D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShBuffer, &errorMsg))) {
 
 		if (errorMsg) {
 			MessageBox(hWnd, reinterpret_cast<LPCTSTR>(errorMsg->GetBufferPointer()), L"Error while compile pixel shader", MB_OK);
@@ -125,7 +128,7 @@ void GColorShader::ShutdownShader() {
 }
 
 
-bool GColorShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat) {
+bool GColorShader::SetShaderParameters(XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat) {
 	// 행렬을 Transpose하여 쉐이더에서 사용가능하도록 함
 	worldMat = XMMatrixTranspose(worldMat);
 	viewMat = XMMatrixTranspose(viewMat);
@@ -155,20 +158,20 @@ bool GColorShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMAT
 	return true;
 }
 
-bool GColorShader::Render(ID3D11DeviceContext* deviceContext, XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat, int indexCount) {
+bool GColorShader::Render(XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat, int indexCount) {
 
-	if (!instance->SetShaderParameters(deviceContext, worldMat, viewMat, projectionMat))
+	if (!instance->SetShaderParameters(worldMat, viewMat, projectionMat))
 		return false;
 
 	// 정점 입력 레이아웃 설정
-	deviceContext->IASetInputLayout(instance->inputLayout);
+	instance->deviceContext->IASetInputLayout(instance->inputLayout);
 
 	// 쉐이더 설정
-	deviceContext->VSSetShader(instance->vertexShader, NULL, 0);
-	deviceContext->PSSetShader(instance->pixelShader, NULL, 0);
+	instance->deviceContext->VSSetShader(instance->vertexShader, NULL, 0);
+	instance->deviceContext->PSSetShader(instance->pixelShader, NULL, 0);
 
 	// 그리기
-	deviceContext->DrawIndexed(indexCount, 0, 0);
+	instance->deviceContext->DrawIndexed(indexCount, 0, 0);
 
 	return true;
 }

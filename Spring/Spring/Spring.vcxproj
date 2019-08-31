@@ -72,6 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -91,11 +92,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -124,11 +127,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,7 +159,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spring.h" />
-    <ClInclude Include="Spring_CCamera.h" />
+    <ClInclude Include="Spring_UCamera.h" />
     <ClInclude Include="Spring_CTransform.h" />
     <ClInclude Include="Spring_FMath.h" />
     <ClInclude Include="Spring_FMatrix4x4.h" />
@@ -181,22 +186,27 @@
     <Image Include="Spring.ico" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Spring_SHColorPixelShader.hlsl">
+    <None Include="Spring_SHColorPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Spring_SHColorVertexShader.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Spring_SHColorVertexShader.hlsl">
       <DeploymentContent>false</DeploymentContent>
-    </FxCompile>
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Spring.cpp" />
+    <ClCompile Include="Spring_FMatrix4x4.cpp" />
     <ClCompile Include="Spring_FVector2.cpp" />
     <ClCompile Include="Spring_G3DModel.cpp" />
     <ClCompile Include="Spring_GColorShader.cpp" />
     <ClCompile Include="Spring_GD3DClass.cpp" />
     <ClCompile Include="Spring_GRenderSystem.cpp" />
+    <ClCompile Include="Spring_UCamera.cpp" />
     <ClCompile Include="Spring_UComponent.cpp" />
+    <ClCompile Include="Spring_UGameEngine.cpp" />
     <ClCompile Include="Spring_ULayer.cpp" />
     <ClCompile Include="Spring_UObject.cpp" />
     <ClCompile Include="Spring_UScene.cpp" />

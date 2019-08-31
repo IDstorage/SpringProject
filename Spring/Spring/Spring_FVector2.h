@@ -7,6 +7,7 @@ namespace spring {
 
 	class FVector2 {
 
+	public:
 		IProperty<float> x, y;
 
 	public:

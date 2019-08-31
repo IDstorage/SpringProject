@@ -22,13 +22,15 @@ namespace spring {
 		ID3D11InputLayout* inputLayout;
 		ID3D11Buffer* matrixBuffer;
 
+		ID3D11DeviceContext* deviceContext;
+
 	public:
-		static bool Initialize(ID3D11Device*, HWND);
+		static bool Initialize(ID3D11Device*, ID3D11DeviceContext*, HWND);
 		static void ShutdownShader();
 
 	public:
-		bool SetShaderParameters(ID3D11DeviceContext*, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
-		static bool Render(ID3D11DeviceContext*, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, int);
+		bool SetShaderParameters(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
+		static bool Render(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, int);
 
 	};
 

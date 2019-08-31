@@ -1,4 +1,5 @@
-#include "Spring_GD3DClass.h"
+#include "Spring_GRenderSystem.h"
+#include "Spring_GColorShader.h"
 
 using namespace DirectX;
 using namespace spring;
