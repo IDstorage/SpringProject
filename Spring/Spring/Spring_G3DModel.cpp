@@ -23,18 +23,36 @@ bool G3DModel::Initialize(ID3D11Device* device) {
 	if (!indices)
 		return false;
 
-	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
+	vertices[0].position = XMFLOAT4(-1.0f, -1.0f, 0.0f, 1.0f);
 	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertices[1].position = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	vertices[1].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	vertices[2].position = XMFLOAT4(1.0f, -1.0f, 0.0f, 1.0f);
 	vertices[2].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	indices[0] = 0;
 	indices[1] = 1;
 	indices[2] = 2;
+
+	// 정적 버텍스 버퍼 구조체
+	D3D11_BUFFER_DESC vertexBufferDesc;
+	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType) * vertexCount;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = 0;
+	vertexBufferDesc.MiscFlags = 0;
+	vertexBufferDesc.StructureByteStride = 0;
+
+	// 버텍스 데이터를 가리키는 보조 리소스 구조체
+	D3D11_SUBRESOURCE_DATA vertexData;
+	vertexData.pSysMem = vertices;
+	vertexData.SysMemPitch = 0;
+	vertexData.SysMemSlicePitch = 0;
+
+	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer)))
+		return false;
 
 	// 버텍스 인덱스 버퍼 구조체
 	D3D11_BUFFER_DESC indexBufferDesc;
@@ -78,6 +96,9 @@ void G3DModel::Release() {
 void G3DModel::Render(ID3D11DeviceContext* deviceContext) {
 	size_t stride = sizeof(VertexType);
 	size_t offset = 0;
+
+	if (!deviceContext)
+		return;
 	
 	// 렌더링 가능하도록 입력 어셈블리에서 버텍스 버퍼를 활성으로 설정
 	deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);

@@ -3,9 +3,11 @@
 #include "Spring_GDX11Header.h"
 #include "Spring_HPreDef.h"
 
+#include "Spring_IAlignedAllocationPolicy.h"
+
 namespace spring {
 
-	class GColorShader {
+	class GColorShader : public IAlignedAllocationPolicy<16> {
 
 		SINGLETON(GColorShader)
 

@@ -26,13 +26,6 @@ namespace spring {
 		GD3DClass* d3dClass;
 		G3DModel* testModel;
 
-		ID3D11Device* device;
-		ID3D11DeviceContext* deviceContext;
-		HWND hWnd;
-
-	public:
-		static void InitializeDX(ID3D11Device*, ID3D11DeviceContext*, HWND);
-
 	private:
 		void Render();
 

@@ -3,12 +3,14 @@
 #include "Spring_GDX11Header.h"
 #include "Spring_IPointer.h"
 
+#include "Spring_IAlignedAllocationPolicy.h"
+
 namespace spring {
 
-	class G3DModel {
+	class G3DModel : public IAlignedAllocationPolicy<16> {
 
 		struct VertexType {
-			DirectX::XMFLOAT3 position;
+			DirectX::XMFLOAT4 position;
 			DirectX::XMFLOAT4 color;
 		};
 

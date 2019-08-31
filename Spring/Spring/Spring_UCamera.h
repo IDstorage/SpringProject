@@ -7,10 +7,12 @@
 
 #include "Spring_GDX11Header.h"
 
+#include "Spring_IAlignedAllocationPolicy.h"
+
 
 namespace spring {
 
-	class UCamera : public URef {
+	class UCamera : public URef, public IAlignedAllocationPolicy<16> {
 
 	private:
 		std::string cameraName;

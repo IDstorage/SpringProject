@@ -64,7 +64,7 @@ bool GD3DClass::Initialize(int screenWidth, int screenHeight, bool vsync,
 		return false;
 
 	// 가능한 모든 모니터와 그래픽카드 조합을 저장할 리스트 생성
-	DXGI_MODE_DESC* displayModeList = new DXGI_MODE_DESC[numModes];
+	DXGI_MODE_DESC* displayModeList = new DXGI_MODE_DESC[100];
 	if (!displayModeList)
 		return false;
 
@@ -82,6 +82,7 @@ bool GD3DClass::Initialize(int screenWidth, int screenHeight, bool vsync,
 			&& displayModeList[i].Height == (size_t)screenHeight) {
 			numerator = displayModeList[i].RefreshRate.Numerator;
 			denominator = displayModeList[i].RefreshRate.Denominator;
+			break;
 		}
 	}
 
@@ -335,10 +336,6 @@ void GD3DClass::BeginScene(float r, float g, float b, float a) {
 	deviceContext->ClearRenderTargetView(renderTargetView, color);
 	// 깊이 버퍼 지우기
 	deviceContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-
-	// 렌더링 시작
-
 }
 
 void GD3DClass::EndScene() {

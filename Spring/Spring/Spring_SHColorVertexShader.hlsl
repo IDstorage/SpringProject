@@ -18,7 +18,7 @@ struct PixelInput {
 PixelInput ColorVertexShader(VertexInput input) {
 	PixelInput result;
 
-	// 적절한 행렬 계싼을 위해 위치 벡터를 4 단위로 변경
+	// 적절한 행렬 계산을 위해 위치 벡터를 4 단위로 변경
 	input.position.w = 1.0f;
 
 	// 월드, 뷰, 투영 행렬에 대한 정점 위치 계산
@@ -32,7 +32,7 @@ PixelInput ColorVertexShader(VertexInput input) {
 }
 
 
-float4 main( float4 pos : POSITION ) : SV_POSITION
-{
-	return pos;
-}
+//float4 main( float4 pos : POSITION ) : SV_POSITION
+//{
+//	return pos;
+//}

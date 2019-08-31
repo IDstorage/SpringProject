@@ -11,7 +11,6 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 
-using namespace std::chrono;
 
 #pragma warning(disable:4996)
 
@@ -28,10 +27,6 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-
-
-int frameCount = 0;
-std::chrono::system_clock::time_point prevTime;
 
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -59,19 +54,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-	spring::GRenderSystem::Initialize(640, 480, targetHWnd);
-	spring::GRenderSystem::FrameRender();
-
-	prevTime = system_clock::now();
+	spring::GRenderSystem::Initialize(1600, 900, targetHWnd);
+	//spring::GRenderSystem::FrameRender()
 
     // 기본 메시지 루프입니다:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
+		spring::GRenderSystem::FrameRender();
     }
 
     return (int) msg.wParam;
@@ -90,7 +84,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
+    wcex.style          = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     wcex.lpfnWndProc    = WndProc;
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
@@ -120,7 +114,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, 640, 480, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, 1600, 900, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -173,10 +167,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-
-			//spring::GRenderSystem::Initialize(640, 480, hWnd);
 			//spring::GRenderSystem::FrameRender();
-
             EndPaint(hWnd, &ps);
         }
         break;

@@ -8,31 +8,41 @@ GColorShader* GColorShader::instance = nullptr;
 
 GColorShader::GColorShader()
 	: vertexShader(nullptr), pixelShader(nullptr),
-		inputLayout(nullptr), matrixBuffer(nullptr) {}
+		inputLayout(nullptr), matrixBuffer(nullptr),
+		deviceContext(nullptr) {}
 
 
 bool GColorShader::Initialize(ID3D11Device* device, ID3D11DeviceContext* context, HWND hWnd) {
+
+	auto ShowErrorMsg = [&](ID3D10Blob* error, LPCWCHAR fileName) {
+		LPVOID msg = error->GetBufferPointer();
+
+		OutputDebugStringA(reinterpret_cast<const char*>(msg));
+
+		MessageBox(hWnd, L"Error while compile vertex shader", fileName, MB_OK);
+
+		error->Release();
+		error = nullptr;
+	};
+
 
 	if (instance == nullptr)
 		instance = new GColorShader();
 
 	instance->deviceContext = context;
 
-	const WCHAR* vsFilePath = L"./Spring_SHColorVertexShader.vs",
-		* psFilePath = L"./Spring_SHColorPixelShader.ps";
+	const WCHAR* vsFilePath = L"./Spring_SHColorVertexShader.hlsl",
+		* psFilePath = L"./Spring_SHColorPixelShader.hlsl";
 
 	ID3D10Blob* errorMsg = nullptr;
 
 	// 버텍스 쉐이더 컴파일
 	ID3D10Blob* vertShBuffer = nullptr;
-	if (FAILED(D3DCompileFromFile(vsFilePath, NULL, NULL, "Spring_SHColorVertexShader", "vs_5_0",
+	if (FAILED(D3DCompileFromFile(vsFilePath, NULL, NULL, "ColorVertexShader", "vs_5_0",
 		D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertShBuffer, &errorMsg))) {
 
-		if (errorMsg) {
-			MessageBox(hWnd, reinterpret_cast<LPCTSTR>(errorMsg->GetBufferPointer()), L"Error while compile vertex shader", MB_OK);
-			errorMsg->Release();
-			errorMsg = nullptr;
-		}
+		if (errorMsg)
+			ShowErrorMsg(errorMsg, vsFilePath);
 		else
 			MessageBox(hWnd, L"No File Exist.", vsFilePath, MB_OK);
 
@@ -41,14 +51,11 @@ bool GColorShader::Initialize(ID3D11Device* device, ID3D11DeviceContext* context
 
 	// 픽셀 쉐이더 컴파일
 	ID3D10Blob* pixelShBuffer = nullptr;
-	if (FAILED(D3DCompileFromFile(psFilePath, NULL, NULL, "Spring_SHColorPixelShader", "ps_5_0",
+	if (FAILED(D3DCompileFromFile(psFilePath, NULL, NULL, "ColorPixelShader", "ps_5_0",
 		D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShBuffer, &errorMsg))) {
 
-		if (errorMsg) {
-			MessageBox(hWnd, reinterpret_cast<LPCTSTR>(errorMsg->GetBufferPointer()), L"Error while compile pixel shader", MB_OK);
-			errorMsg->Release();
-			errorMsg = nullptr;
-		}
+		if (errorMsg)
+			ShowErrorMsg(errorMsg, psFilePath);
 		else
 			MessageBox(hWnd, L"No File Exist.", vsFilePath, MB_OK);
 

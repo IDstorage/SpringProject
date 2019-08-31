@@ -6,7 +6,7 @@ using namespace spring;
 
 UCamera::UCamera(const std::string& name) 
 	: cameraName(name), position(XMFLOAT3(0.0f, 0.0f, 0.0f)),
-		eulerAngle(XMFLOAT3(0.0f, 0.0f, 0.0f)) {}
+		eulerAngle(XMFLOAT3(0.0f, 0.0f, 0.0f)), viewMatrix(XMMATRIX()) {}
 
 UCamera::~UCamera() {}
 
