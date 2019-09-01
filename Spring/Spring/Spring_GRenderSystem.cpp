@@ -8,7 +8,7 @@ using namespace spring;
 
 GRenderSystem* GRenderSystem::instance = nullptr;
 
-GRenderSystem::GRenderSystem() : vSyncEnable(true), isFullScreen(false),
+GRenderSystem::GRenderSystem() : vSyncEnable(false), isFullScreen(false),
 									screenDepth(1000.0f), screenNear(0.1f),
 									d3dClass(nullptr), testModel(nullptr) {}
 
@@ -28,19 +28,19 @@ void GRenderSystem::Initialize(int screenWidth, int screenHeight, HWND hWnd) {
 
 	UGameEngine::InitializeStandardCamera();
 
-	if (!GColorShader::Initialize(instance->d3dClass->GetDevice(), instance->d3dClass->GetDeviceContext(), hWnd))
-		return;
-
 	instance->testModel = new G3DModel();
 	instance->testModel->Initialize(instance->d3dClass->GetDevice());
+
+	if (!GColorShader::Initialize(instance->d3dClass->GetDevice(), instance->d3dClass->GetDeviceContext(), hWnd))
+		return;
 }
 
 
 void GRenderSystem::Render() {
-	d3dClass->BeginScene(0.0f, 0.0f, 0.0f, 0.0f);
+	d3dClass->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
 	// 카메라 뷰 행렬 생성
-	UGameEngine::GetMainCamera()->Render();
+	/*UGameEngine::GetMainCamera()->Render();
 
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -50,7 +50,7 @@ void GRenderSystem::Render() {
 
 	testModel->Render(d3dClass->GetDeviceContext());
 
-	GColorShader::Render(worldMatrix, viewMatrix, projectionMatrix, testModel->GetIndexCount());
+	GColorShader::Render(worldMatrix, viewMatrix, projectionMatrix, testModel->GetIndexCount());*/
 
 	d3dClass->EndScene();
 }

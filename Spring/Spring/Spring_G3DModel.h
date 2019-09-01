@@ -10,7 +10,7 @@ namespace spring {
 	class G3DModel : public IAlignedAllocationPolicy<16> {
 
 		struct VertexType {
-			DirectX::XMFLOAT4 position;
+			DirectX::XMFLOAT3 position;
 			DirectX::XMFLOAT4 color;
 		};
 

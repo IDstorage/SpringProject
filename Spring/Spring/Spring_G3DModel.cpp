@@ -12,29 +12,41 @@ G3DModel::~G3DModel() {}
 
 
 bool G3DModel::Initialize(ID3D11Device* device) {
-	vertexCount = 3;
-	indexCount = 3;
+	vertexCount = 8;
+	indexCount = 36;
 
 	VertexType* vertices = new	VertexType[vertexCount];
 	if (!vertices)
 		return false;
 
-	size_t* indices = new size_t[indexCount];
-	if (!indices)
-		return false;
+	vertices[0] = { XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+	vertices[1] = { XMFLOAT3(-1.0f, +1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+	vertices[2] = { XMFLOAT3(+1.0f, +1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+	vertices[3] = { XMFLOAT3(+1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+	vertices[4] = { XMFLOAT3(-1.0f, -1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+	vertices[5] = { XMFLOAT3(-1.0f, +1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+	vertices[6] = { XMFLOAT3(+1.0f, +1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+	vertices[7] = { XMFLOAT3(+1.0f, -1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
 
-	vertices[0].position = XMFLOAT4(-1.0f, -1.0f, 0.0f, 1.0f);
-	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	UINT indices[] = {
+		0, 1, 2,
+		0, 2, 3,
 
-	vertices[1].position = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-	vertices[1].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+		4, 6, 5,
+		4, 7, 6,
 
-	vertices[2].position = XMFLOAT4(1.0f, -1.0f, 0.0f, 1.0f);
-	vertices[2].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+		4, 5, 1,
+		4, 1, 0,
 
-	indices[0] = 0;
-	indices[1] = 1;
-	indices[2] = 2;
+		3, 2, 6,
+		3, 6, 7,
+
+		1, 5, 6,
+		1, 6, 2,
+
+		4, 0, 3,
+		4, 3, 7
+	};
 
 	// 정적 버텍스 버퍼 구조체
 	D3D11_BUFFER_DESC vertexBufferDesc;
@@ -57,7 +69,7 @@ bool G3DModel::Initialize(ID3D11Device* device) {
 	// 버텍스 인덱스 버퍼 구조체
 	D3D11_BUFFER_DESC indexBufferDesc;
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long) / indexCount;
+	indexBufferDesc.ByteWidth = sizeof(UINT) * indexCount;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -74,9 +86,6 @@ bool G3DModel::Initialize(ID3D11Device* device) {
 
 	delete[] vertices;
 	vertices = nullptr;
-
-	delete[] indices;
-	indices = nullptr;
 
 	return true;
 }
