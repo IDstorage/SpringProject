@@ -7,6 +7,7 @@ cbuffer MatrixBuffer {
 struct VertexInput {
 	float4 position : POSITION;
 	float4 color : COLOR;
+	//matrix mat : MATRIX;
 };
 
 struct PixelInput {
@@ -22,10 +23,13 @@ PixelInput ColorVertexShader(VertexInput input) {
 	input.position.w = 1.0f;
 
 	// 월드, 뷰, 투영 행렬에 대한 정점 위치 계산
+	//result.position = mul(input.position, input.mat);
+
 	result.position = mul(input.position, worldMatrix);
 	result.position = mul(result.position, viewMatrix);
 	result.position = mul(result.position, projectionMatrix);
 
+	//result.color = float4(input.color.a, input.color.a, input.color.a, 1.0f);
 	result.color = input.color;
 
 	return result;

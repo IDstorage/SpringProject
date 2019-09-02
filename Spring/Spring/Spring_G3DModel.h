@@ -18,7 +18,7 @@ namespace spring {
 		G3DModel();
 		G3DModel(const G3DModel&);
 		~G3DModel();
-
+		         
 	private:
 		ID3D11Buffer* vertexBuffer = nullptr;
 		ID3D11Buffer* indexBuffer = nullptr;
@@ -26,16 +26,29 @@ namespace spring {
 		int vertexCount = 0;
 		int indexCount = 0;
 
+		DirectX::XMFLOAT3 position;
+		DirectX::XMFLOAT3 eulerAngle;
+
+		DirectX::XMMATRIX viewMatrix;
+
 	public:
 		static IPointer<G3DModel>& Create3DModel();
 
 	public:
-		bool Initialize(ID3D11Device*);
+		bool Initialize(ID3D11Device*, ID3D11DeviceContext*);
 		void Release();
 		void Render(ID3D11DeviceContext*);
 
 	public:
 		int GetIndexCount() const;
+
+	public:
+		void SetPosition(float, float, float);
+		void SetPositionDX(DirectX::XMFLOAT3);
+
+		void SetEulerRotation(float, float, float);
+		void SetEulerRotationDX(DirectX::XMFLOAT3);
+		//void SetRotation(FQuaternion);
 
 	};
 

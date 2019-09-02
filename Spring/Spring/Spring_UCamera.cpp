@@ -5,7 +5,7 @@ using namespace spring;
 
 
 UCamera::UCamera(const std::string& name) 
-	: cameraName(name), position(XMFLOAT3(0.0f, 0.0f, 0.0f)),
+	: cameraName(name), position(XMFLOAT3(0.0f, 0.0f, -10.0f)),
 		eulerAngle(XMFLOAT3(0.0f, 0.0f, 0.0f)), viewMatrix(XMMATRIX()) {}
 
 UCamera::~UCamera() {}
@@ -17,11 +17,19 @@ void UCamera::SetPosition(float x, float y, float z) {
 	position.z = z;
 }
 
+void UCamera::SetPosition(XMFLOAT3 pos) {
+	position = pos;
+}
+
 
 void UCamera::SetEulerAngle(float x, float y, float z) {
 	eulerAngle.x = x;
 	eulerAngle.y = y;
 	eulerAngle.z = z;
+}
+
+void UCamera::SetEulerAngle(XMFLOAT3 euler) {
+	eulerAngle = euler;
 }
 
 

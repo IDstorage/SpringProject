@@ -29,7 +29,7 @@ void GRenderSystem::Initialize(int screenWidth, int screenHeight, HWND hWnd) {
 	UGameEngine::InitializeStandardCamera();
 
 	instance->testModel = new G3DModel();
-	instance->testModel->Initialize(instance->d3dClass->GetDevice());
+	instance->testModel->Initialize(instance->d3dClass->GetDevice(), instance->d3dClass->GetDeviceContext());
 
 	if (!GColorShader::Initialize(instance->d3dClass->GetDevice(), instance->d3dClass->GetDeviceContext(), hWnd))
 		return;
@@ -40,7 +40,7 @@ void GRenderSystem::Render() {
 	d3dClass->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
 	// 카메라 뷰 행렬 생성
-	/*UGameEngine::GetMainCamera()->Render();
+	UGameEngine::GetMainCamera()->Render();
 
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 
@@ -50,9 +50,13 @@ void GRenderSystem::Render() {
 
 	testModel->Render(d3dClass->GetDeviceContext());
 
-	GColorShader::Render(worldMatrix, viewMatrix, projectionMatrix, testModel->GetIndexCount());*/
+	GColorShader::Render(worldMatrix, viewMatrix, projectionMatrix, testModel->GetIndexCount());
 
 	d3dClass->EndScene();
+
+	//XMFLOAT3 euler = UGameEngine::GetMainCamera()->GetEulerAngleDX();
+	//euler.y -= 1.0f;
+	//UGameEngine::GetMainCamera()->SetEulerAngle(euler.x, euler.y, euler.z);
 }
 
 void GRenderSystem::FrameRender() {

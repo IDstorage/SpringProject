@@ -19,7 +19,7 @@ GD3DClass::GD3DClass()
 	depthStencilState(nullptr),
 	rasterizerState(nullptr) {}
 
-GD3DClass::GD3DClass(const GD3DClass& obj) 
+GD3DClass::GD3DClass(const GD3DClass& obj)
 	: isVsyncEnable(false),
 	videoCardMemory(0),
 	videoCardDescription{ 0 },
@@ -60,7 +60,7 @@ bool GD3DClass::Initialize(int screenWidth, int screenHeight, bool vsync,
 	// 출력에 대한 DXGI_FORMAT_R8G8B8A8_UNORM 표시 형식에 맞는 모드 수를 가져옴
 	unsigned int numModes = 0;
 	if (FAILED(adapterOutput->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED,
-				&numModes, NULL)))
+		&numModes, NULL)))
 		return false;
 
 	// 가능한 모든 모니터와 그래픽카드 조합을 저장할 리스트 생성
@@ -241,7 +241,7 @@ bool GD3DClass::Initialize(int screenWidth, int screenHeight, bool vsync,
 
 	D3D11_RASTERIZER_DESC rasterDesc;
 	rasterDesc.AntialiasedLineEnable = false;
-	rasterDesc.CullMode = D3D11_CULL_FRONT;
+	rasterDesc.CullMode = D3D11_CULL_BACK;
 	rasterDesc.DepthBias = 0;
 	rasterDesc.DepthBiasClamp = 0.0f;
 	rasterDesc.DepthClipEnable = true;

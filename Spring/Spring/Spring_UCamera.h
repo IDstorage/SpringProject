@@ -29,9 +29,11 @@ namespace spring {
 
 	public:
 		void SetPosition(float, float, float);
+		void SetPosition(DirectX::XMFLOAT3);
 		//void SetPosition(const FVector3&);
 
 		void SetEulerAngle(float, float, float);
+		void SetEulerAngle(DirectX::XMFLOAT3);
 		//void SetEulerAngle(const FVector3&);
 		//void SetRotation(const FQuaternion&);
 
@@ -44,6 +46,9 @@ namespace spring {
 		//FQuaternion GetRotation() const;
 
 		void GetViewMatrix(DirectX::XMMATRIX&);
+
+	public:
+		void TEMP_RotateLittle(int, int);
 
 	public:
 		void Render();
