@@ -54,9 +54,9 @@ void GRenderSystem::Render() {
 
 	d3dClass->EndScene();
 
-	//XMFLOAT3 euler = UGameEngine::GetMainCamera()->GetEulerAngleDX();
-	//euler.y -= 1.0f;
-	//UGameEngine::GetMainCamera()->SetEulerAngle(euler.x, euler.y, euler.z);
+	XMFLOAT3 euler = testModel->GetEulerAngle();
+	euler.y += 1.0f;
+	testModel->SetEulerAngle(euler.x, euler.y, euler.z);
 }
 
 void GRenderSystem::FrameRender() {

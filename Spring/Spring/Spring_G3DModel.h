@@ -26,10 +26,13 @@ namespace spring {
 		int vertexCount = 0;
 		int indexCount = 0;
 
+		DirectX::XMFLOAT3 vertexList[8];
+
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT3 eulerAngle;
 
-		DirectX::XMMATRIX viewMatrix;
+		ID3D11Device* device;
+		ID3D11DeviceContext* deviceContext;
 
 	public:
 		static IPointer<G3DModel>& Create3DModel();
@@ -46,9 +49,15 @@ namespace spring {
 		void SetPosition(float, float, float);
 		void SetPositionDX(DirectX::XMFLOAT3);
 
-		void SetEulerRotation(float, float, float);
-		void SetEulerRotationDX(DirectX::XMFLOAT3);
+	private:
+		DirectX::XMFLOAT3 ChangeToSphericalCoord(int, DirectX::XMFLOAT3, DirectX::XMFLOAT3);
+
+	public:
+		void SetEulerAngle(float, float, float);
+		void SetEulerAngle(DirectX::XMFLOAT3);
 		//void SetRotation(FQuaternion);
+
+		DirectX::XMFLOAT3 GetEulerAngle() const;
 
 	};
 
