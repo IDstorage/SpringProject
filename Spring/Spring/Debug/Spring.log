@@ -1,2 +1,1 @@
-﻿  Spring_G3DModel.cpp
-  Spring.vcxproj -> C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring.exe
+﻿LINK : fatal error LNK1168: C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring.exe을(를) 쓰기용으로 열 수 없습니다.

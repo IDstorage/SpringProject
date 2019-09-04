@@ -55,7 +55,7 @@ void GRenderSystem::Render() {
 	d3dClass->EndScene();
 
 	XMFLOAT3 euler = testModel->GetEulerAngle();
-	euler.y += 1.0f;
+	euler.y = 1.0f;
 	testModel->SetEulerAngle(euler.x, euler.y, euler.z);
 }
 

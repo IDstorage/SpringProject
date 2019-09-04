@@ -20,7 +20,7 @@ bool G3DModel::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	indexCount = 36;
 
 	position = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	eulerAngle = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	eulerAngle = XMFLOAT3(0.0f, 0.0f, 0.0f); 
 	 
 	vertexList[0] = XMFLOAT3(-1.0f, -1.0f, -1.0f);
 	vertexList[1] = XMFLOAT3(-1.0f, +1.0f, -1.0f);
@@ -95,6 +95,8 @@ bool G3DModel::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer)))
 		return false;
 
+	//ChangeToSphericalCoord(2, position, eulerAngle);
+
 	// 버텍스 인덱스 버퍼 구조체
 	D3D11_BUFFER_DESC indexBufferDesc;
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -162,26 +164,36 @@ int G3DModel::GetIndexCount() const {
 
 XMFLOAT3 G3DModel::ChangeToSphericalCoord(int index, XMFLOAT3 pos, XMFLOAT3 euler) { 
 
-	float r = FMath::Sqrt(vertexList[index].x * vertexList[index].x + vertexList[index].y * vertexList[index].y + vertexList[index].z * vertexList[index].z);
+	float basicRad = FMath::Sqrt(vertexList[index].x * vertexList[index].x + vertexList[index].y * vertexList[index].y + vertexList[index].z * vertexList[index].z);
+	float newRad = basicRad * FMath::Sin_Deg(euler.z);
+
+	float basicAngle = FMath::ATan2(vertexList[index].z, vertexList[index].x)  *FMath::Rad2Deg;
+	float alphaY = euler.y * FMath::Deg2Rad - basicAngle;
+	float alphaZ = euler.z * FMath::Deg2Rad + basicAngle;
 
 	XMFLOAT3 spher = XMFLOAT3(
-		r,
+		basicRad,
 		FMath::ATan2(pos.y, pos.x),
-		FMath::ACos(pos.z / r)  
-		);
+		FMath::ACos(pos.z / basicRad) 
+	);
 
 	//spher.x += euler.x * FMath::Deg2Rad;
-	spher.y += euler.x * FMath::Deg2Rad;
-	spher.z += euler.y * FMath::Deg2Rad;
+	spher.y += euler.y * FMath::Deg2Rad;
+	//spher.z += euler.z * FMath::Deg2Rad;
 
 	XMFLOAT3 local = XMFLOAT3(
-		spher.x * FMath::Cos(spher.z), 
-		spher.x * FMath::Sin(spher.z) * FMath::Sin(spher.y),
-		spher.x * FMath::Sin(spher.z) * FMath::Cos(spher.y) 
-		
+		vertexList[index].x * FMath::Cos(alphaY) - vertexList[index].z * FMath::Sin(alphaY),// * FMath::Cos(spher.z),
+		vertexList[index].y,//spher.x * FMath::Sin(spher.y) * FMath::Sin(spher.z),
+		vertexList[index].x * FMath::Sin(alphaY) + vertexList[index].z * FMath::Cos(alphaY)// * FMath::Sin(alphaY)// * FMath::Sin(spher.z)
 	); 
 
-	return local;
+	/*XMFLOAT3 local = XMFLOAT3(
+		newRad * FMath::Cos_Deg(euler.y),
+		basicRad * FMath::Sin_Deg(90.0f - euler.z),
+		newRad * FMath::Sin_Deg(euler.y)
+	); */
+
+ 	return local;
 }
 
 void G3DModel::SetEulerAngle(float x, float y, float z) {
@@ -225,6 +237,9 @@ void G3DModel::SetEulerAngle(float x, float y, float z) {
 
 	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer)))
 		return;
+
+	delete[] vertices;
+	vertices = nullptr;
 }
 
 void G3DModel::SetEulerAngle(XMFLOAT3 angles) {
