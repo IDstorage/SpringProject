@@ -93,6 +93,9 @@
     <ClInclude Include="Spring_IAlignedAllocationPolicy.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
+    <ClInclude Include="Spring_UInputBinder.h">
+      <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spring.rc">

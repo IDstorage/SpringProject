@@ -27,3 +27,6 @@ static CLASS_NAME* instance; \
 CLASS_NAME();
 
 #pragma endregion
+
+
+#define BINDF(FUNC_NAME, PARAMS)  

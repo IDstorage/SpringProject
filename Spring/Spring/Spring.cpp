@@ -12,6 +12,9 @@
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 
+#pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "dxguid.lib") 
+
 
 #pragma warning(disable:4996)
 
