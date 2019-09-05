@@ -52,11 +52,7 @@ void GRenderSystem::Render() {
 
 	GColorShader::Render(worldMatrix, viewMatrix, projectionMatrix, testModel->GetIndexCount());
 
-	d3dClass->EndScene();
-
-	XMFLOAT3 euler = testModel->GetEulerAngle();
-	euler.y = 1.0f;
-	testModel->SetEulerAngle(euler.x, euler.y, euler.z);
+	d3dClass->EndScene(); 
 }
 
 void GRenderSystem::FrameRender() {
@@ -69,4 +65,14 @@ void GRenderSystem::ShutdownRenderingSys() {
 		_aligned_free(instance->d3dClass);
 		instance->d3dClass = nullptr;
 	}
+}
+
+
+
+void GRenderSystem::SetModelRot(XMFLOAT3 e) {
+	instance->testModel->SetEulerAngle(e);
+}
+
+XMFLOAT3 GRenderSystem::GetRot() {
+	return instance->testModel->GetEulerAngle();
 }

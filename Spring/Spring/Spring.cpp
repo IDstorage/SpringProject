@@ -23,8 +23,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 HWND targetHWnd;
 
-bool keys[6] = { false };
-bool otherKeys[5] = { false };
+bool keys[7] = { false }; 
 
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
@@ -76,39 +75,23 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             DispatchMessage(&msg);
         }
 
-		DirectX::XMFLOAT3 pos = spring::UGameEngine::GetMainCamera()->GetPositionDX();
-		float delta = 0.25f;
+		DirectX::XMFLOAT3 e = spring::GRenderSystem::GetRot();
+		float delta = 4.0f;
 		if (keys[0])
-			pos.x += delta;
+			e.x += delta;
 		if (keys[1])
-			pos.x -= delta;
+			e.x -= delta;
 		if (keys[2])
-			pos.z -= delta;
+			e.y -= delta;
 		if (keys[3])
-			pos.z += delta;
+			e.y += delta;
 		if (keys[4])
-			pos.y -= delta;
+			e.z -= delta;
 		if (keys[5])
-			pos.y += delta;
-		if (otherKeys[4])
-			pos = DirectX::XMFLOAT3(0.0f, 0.0f, -10.0f);
-		spring::UGameEngine::GetMainCamera()->SetPosition(pos);
-
-
-		DirectX::XMFLOAT3 euler = spring::UGameEngine::GetMainCamera()->GetEulerAngleDX();
-		float delta2 = 2.0f;
-		if (otherKeys[0])
-			euler.y += delta2;
-		if (otherKeys[1])
-			euler.y -= delta2;
-		if (otherKeys[2])
-			euler.x -= delta2;
-		if (otherKeys[3])
-			euler.x += delta2;
-		if (otherKeys[4])
-			euler = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-		spring::UGameEngine::GetMainCamera()->SetEulerAngle(euler);
-
+			e.z += delta;
+		if (keys[6])
+			e = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+		spring::GRenderSystem::SetModelRot(e);
 
 		spring::GRenderSystem::FrameRender();
 
@@ -221,90 +204,64 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_KEYDOWN:
 		
 		switch (wParam) {
-		// Key A
-		case 0x41:
+		// Key Q
+		case 0x51:
 			keys[0] = true;
 			break;
-		// Key D
-		case 0x44:
+		// Key A
+		case 0x41:
 			keys[1] = true;
 			break;
 		// Key W
 		case 0x57:
-			keys[4] = true;
+			keys[2] = true;
 			break;
 		// Key S
 		case 0x53:
-			keys[5] = true;
-			break;
-		// Key Q
-		case 0x51:
-			keys[2] = true;
-			break;
+			keys[3] = true;
+			break; 
+		// Key D
+		case 0x44:
+			keys[4] = true;
+			break; 
 		// Key E
 		case 0x45:
-			keys[3] = true;
-			break;
-
-		case VK_LEFT:
-			otherKeys[0] = true;
-			break;
-		case VK_RIGHT:
-			otherKeys[1] = true;
-			break;
-		case VK_UP:
-			otherKeys[2] = true;
-			break;
-		case VK_DOWN:
-			otherKeys[3] = true;
+			keys[5] = true;
 			break;
 		case VK_SPACE:
-			otherKeys[4] = true;
+			keys[6] = true;
 			break;
 		}
 		
 		break;
 	case WM_KEYUP:
 		switch (wParam) {
-		// Key A
-		case 0x41:
+			// Key Q
+		case 0x51:
 			keys[0] = false;
 			break;
-		// Key D
-		case 0x44:
+			// Key A
+		case 0x41:
 			keys[1] = false;
 			break;
-		// Key W
+			// Key W
 		case 0x57:
-			keys[4] = false;
-			break;
-		// Key S
-		case 0x53:
-			keys[5] = false;
-			break;
-		// Key Q
-		case 0x51:
 			keys[2] = false;
 			break;
-		// Key E
-		case 0x45:
+			// Key S
+		case 0x53:
 			keys[3] = false;
 			break;
-
-		case VK_LEFT:
-			otherKeys[0] = false;
+			// Key D
+		case 0x44:
+			keys[4] = false;
 			break;
-		case VK_RIGHT:
-			otherKeys[1] = false;
-			break;
-		case VK_UP:
-			otherKeys[2] = false;
-			break;
-		case VK_DOWN:
-			otherKeys[3] = false;
+			// Key E
+		case 0x45:
+			keys[5] = false;
 			break;
 		case VK_SPACE:
-			otherKeys[4] = false;
+			keys[6] = false;
 			break;
 		}
 		break;

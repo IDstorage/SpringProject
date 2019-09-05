@@ -32,6 +32,10 @@ namespace spring {
 	public:
 		static void FrameRender();
 		static void ShutdownRenderingSys();
+
+	public:
+		static void SetModelRot(DirectX::XMFLOAT3);
+		static DirectX::XMFLOAT3 GetRot();
 	};
 
 }

@@ -28,8 +28,15 @@ namespace spring {
 
 		DirectX::XMFLOAT3 vertexList[8];
 
+		DirectX::XMFLOAT3 vertVectorList[8];
+		DirectX::XMFLOAT3 basicLookRot;
+
+		DirectX::XMFLOAT3 vertexBasicAngle[8];
+
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT3 eulerAngle;
+
+		DirectX::XMFLOAT3 lookAtVector;
 
 		ID3D11Device* device;
 		ID3D11DeviceContext* deviceContext;
@@ -50,7 +57,11 @@ namespace spring {
 		void SetPositionDX(DirectX::XMFLOAT3);
 
 	private:
-		DirectX::XMFLOAT3 ChangeToSphericalCoord(int, DirectX::XMFLOAT3, DirectX::XMFLOAT3);
+		DirectX::XMFLOAT3 RotateX(DirectX::XMFLOAT3, float);
+		DirectX::XMFLOAT3 RotateY(DirectX::XMFLOAT3, float);
+		DirectX::XMFLOAT3 RotateZ(DirectX::XMFLOAT3, float);
+
+		DirectX::XMFLOAT3 ChangeToSphericalCoord(int);
 
 	public:
 		void SetEulerAngle(float, float, float);
