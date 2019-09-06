@@ -4,6 +4,7 @@
 
 namespace spring {
 
+	// IPointer's basic object type
 	class URef;
 
 	template <class _Typ>
@@ -15,18 +16,13 @@ namespace spring {
 			this->object = obj;
 			this->object->PlusRefCount(1);
 		}
-		IPointer(const _Typ& obj) {
-			this->object = &obj;
-			this->object->PlusRefCount(1);
-		}
-		IPointer(_Typ** obj) {
-			this->object = *obj;
-			this->object->PlusRefCount(1);
-		}
+		IPointer(const _Typ& obj) : IPointer(&obj) { }
+		IPointer(_Typ** obj) : IPointer(*obj) { }
 		IPointer(const IPointer<_Typ>& ptr) {
 			this->object = ptr.object;
 			this->object->PlusRefCount(1);
 		}
+		// TODO: Remove if it's not nessesery anymore.
 		IPointer(std::nullptr_t nptr) {
 			this->object = nullptr;
 		}

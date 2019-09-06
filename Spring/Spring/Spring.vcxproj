@@ -209,6 +209,7 @@
     <ClCompile Include="Spring_UCamera.cpp" />
     <ClCompile Include="Spring_UComponent.cpp" />
     <ClCompile Include="Spring_UGameEngine.cpp" />
+    <ClCompile Include="Spring_UInputBinder.cpp" />
     <ClCompile Include="Spring_ULayer.cpp" />
     <ClCompile Include="Spring_UObject.cpp" />
     <ClCompile Include="Spring_UScene.cpp" />

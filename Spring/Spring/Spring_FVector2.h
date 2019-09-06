@@ -37,4 +37,6 @@ namespace spring {
 		static const FVector2& Lerp(const FVector2&, const FVector2&, float);
 	};
 
+	using FSize = FVector2;
+
 }

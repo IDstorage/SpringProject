@@ -4,21 +4,16 @@
 #include "framework.h"
 #include "Spring.h"
 
-#include "Spring_UGameEngine.h"
-#include "Spring_UFrameworks.h"
-#include "Spring_GRenderSystem.h"
+#include "Spring_UGameEngine.h" 
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 
 #pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "dxguid.lib") 
+#pragma comment(lib, "dxguid.lib")  
 
-
-#pragma warning(disable:4996)
-
-#define MAX_LOADSTRING 100
+#pragma warning(disable:4996) 
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -36,41 +31,36 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 
+void RotateX(float deltaAngle) {
+	DirectX::XMFLOAT3 e = spring::Renderer->GetRot();
+	e.x += deltaAngle;
+	spring::Renderer->SetModelRot(e);
+}
+
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: 여기에 코드를 입력합니다.
+	spring::GEngine->InitializeGame(1280, 720, hInstance, hPrevInstance, lpCmdLine, nCmdShow, WndProc);
 
-    // 전역 문자열을 초기화합니다.
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_SPRING, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+	//std::function<void()> f = spring::UInputBinder::Bind(Hello, 10);
 
-    // 애플리케이션 초기화를 수행합니다:
-    if (!InitInstance (hInstance, nCmdShow))
-    {
-        return FALSE;
-    }
+	//f();
 
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_SPRING));
+	spring::InputBinder->BindAction(spring::EK_Q, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateX, 1.0f));
 
-    MSG msg;
-
-	spring::GRenderSystem::Initialize(1600, 900, targetHWnd);
-	spring::GRenderSystem::FrameRender();
-
-	clock_t prevTime = clock();
+	MSG msg;
 
     // 기본 메시지 루프입니다:
-    while (true)//GetMessage(&msg, nullptr, 0, 0))
+    while (!spring::GEngine->GetCurrentState()->isGameEnd)//GetMessage(&msg, nullptr, 0, 0))
     {
-		if (clock() - prevTime < 1000 / 60)
+		if (!spring::GEngine->CheckOneFrame())
 			continue;
+
+		MSG msg = spring::GEngine->GetWndMessage();
 
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
@@ -78,7 +68,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             DispatchMessage(&msg);
         }
 
-		DirectX::XMFLOAT3 e = spring::GRenderSystem::GetRot();
+		/*DirectX::XMFLOAT3 e = spring::Renderer->GetRot();
 		float delta = 4.0f;
 		if (keys[0])
 			e.x += delta;
@@ -94,74 +84,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			e.z += delta;
 		if (keys[6])
 			e = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-		spring::GRenderSystem::SetModelRot(e);
+		spring::Renderer->SetModelRot(e);*/
 
-		spring::GRenderSystem::FrameRender();
+		spring::GEngine->Tick(); 
 
-		prevTime = clock();
+		spring::Renderer->FrameRender();
     }
 
-    return (int) msg.wParam;
+	spring::GEngine->Release();
+
+    return (int)spring::GEngine->GetWndMessage().wParam;
 }
-
-
-
-//
-//  함수: MyRegisterClass()
-//
-//  용도: 창 클래스를 등록합니다.
-//
-ATOM MyRegisterClass(HINSTANCE hInstance)
-{
-    WNDCLASSEXW wcex;
-
-    wcex.cbSize = sizeof(WNDCLASSEX);
-
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc;
-    wcex.cbClsExtra     = 0;
-    wcex.cbWndExtra     = 0;
-    wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SPRING));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_SPRING);
-    wcex.lpszClassName  = szWindowClass;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-    return RegisterClassExW(&wcex);
-}
-
-//
-//   함수: InitInstance(HINSTANCE, int)
-//
-//   용도: 인스턴스 핸들을 저장하고 주 창을 만듭니다.
-//
-//   주석:
-//
-//        이 함수를 통해 인스턴스 핸들을 전역 변수에 저장하고
-//        주 프로그램 창을 만든 다음 표시합니다.
-//
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
-{
-   hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
-
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, 1600, 900, nullptr, nullptr, hInstance, nullptr);
-
-   if (!hWnd)
-   {
-      return FALSE;
-   }
-
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
-
-   targetHWnd = hWnd;
-
-   return TRUE;
-}
-
+ 
 //
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
@@ -175,124 +109,83 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
-    {
-	case WM_CREATE:
-		
-		break;
-    case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // 메뉴 선택을 구문 분석합니다:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
+	{
+ //   case WM_PAINT:
+ //       {
+ //           PAINTSTRUCT ps;
+ //           HDC hdc = BeginPaint(hWnd, &ps);
 
-            EndPaint(hWnd, &ps);
-        }
-        break;
-	case WM_KEYDOWN:
-		
-		switch (wParam) {
-		// Key Q
-		case 0x51:
-			keys[0] = true;
-			break;
-		// Key A
-		case 0x41:
-			keys[1] = true;
-			break;
-		// Key W
-		case 0x57:
-			keys[2] = true;
-			break;
-		// Key S
-		case 0x53:
-			keys[3] = true;
-			break; 
-		// Key D
-		case 0x44:
-			keys[4] = true;
-			break; 
-		// Key E
-		case 0x45:
-			keys[5] = true;
-			break;
-		case VK_SPACE:
-			keys[6] = true;
-			break;
-		}
-		
-		break;
-	case WM_KEYUP:
-		switch (wParam) {
-			// Key Q
-		case 0x51:
-			keys[0] = false;
-			break;
-			// Key A
-		case 0x41:
-			keys[1] = false;
-			break;
-			// Key W
-		case 0x57:
-			keys[2] = false;
-			break;
-			// Key S
-		case 0x53:
-			keys[3] = false;
-			break;
-			// Key D
-		case 0x44:
-			keys[4] = false;
-			break;
-			// Key E
-		case 0x45:
-			keys[5] = false;
-			break;
-		case VK_SPACE:
-			keys[6] = false;
-			break;
-		}
-		break;
-    case WM_DESTROY:
+ //           EndPaint(hWnd, &ps);
+ //       }
+ //       break;
+	//case WM_KEYDOWN:
+	//	
+	//	switch (wParam) {
+	//	// Key Q
+	//	case 0x51:
+	//		keys[0] = true;
+	//		break;
+	//	// Key A
+	//	case 0x41:
+	//		keys[1] = true;
+	//		break;
+	//	// Key W
+	//	case 0x57:
+	//		keys[2] = true;
+	//		break;
+	//	// Key S
+	//	case 0x53:
+	//		keys[3] = true;
+	//		break; 
+	//	// Key D
+	//	case 0x44:
+	//		keys[4] = true;
+	//		break; 
+	//	// Key E
+	//	case 0x45:
+	//		keys[5] = true;
+	//		break;
+	//	case VK_SPACE:
+	//		keys[6] = true;
+	//		break;
+	//	}
+	//	
+	//	break;
+	//case WM_KEYUP:
+	//	switch (wParam) {
+	//		// Key Q
+	//	case 0x51:
+	//		keys[0] = false;
+	//		break;
+	//		// Key A
+	//	case 0x41:
+	//		keys[1] = false;
+	//		break;
+	//		// Key W
+	//	case 0x57:
+	//		keys[2] = false;
+	//		break;
+	//		// Key S
+	//	case 0x53:
+	//		keys[3] = false;
+	//		break;
+	//		// Key D
+	//	case 0x44:
+	//		keys[4] = false;
+	//		break;
+	//		// Key E
+	//	case 0x45:
+	//		keys[5] = false;
+	//		break;
+	//	case VK_SPACE:
+	//		keys[6] = false;
+	//		break;
+	//	}
+	//	break;
         PostQuitMessage(0);
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
-}
-
-// 정보 대화 상자의 메시지 처리기입니다.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
 }

@@ -153,6 +153,9 @@
     <ClCompile Include="Spring_FMatrix4x4.cpp">
       <Filter>소스 파일\Spring</Filter>
     </ClCompile>
+    <ClCompile Include="Spring_UInputBinder.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Spring_SHColorPixelShader.hlsl">

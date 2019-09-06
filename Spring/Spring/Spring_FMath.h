@@ -48,6 +48,22 @@ namespace spring {
 	public:
 		static float Lerp(float x, float y, float t) { return (1.0f - t) * x + t * y; }
 
+	public:
+		static int Clamp(int value, int min, int max) {
+			if (value < min)
+				return min;
+			else if (value > max)
+				return max;
+			return value;
+		}
+		static float Clamp(float value, float min, float max) {
+			if (value < min)
+				return min;
+			else if (value > max)
+				return max;
+			return value;
+		} 
+
 	};
 
 }

@@ -1,8 +1,15 @@
 #pragma once
 
-#include "Spring_IPointer.h"
-#include "Spring_UCamera.h"
+#include "Spring_IPointer.h" 
 #include "Spring_HPreDef.h"
+
+#include "Spring_UFrameworks.h"
+#include "Spring_GRenderSystem.h"
+#include "Spring_UInputBinder.h"
+
+#include "Spring_UCamera.h"
+
+#define MAX_LOADSTRING 100
 
 namespace spring {
 
@@ -14,7 +21,36 @@ namespace spring {
 
 	class UGameEngine {
 
-		SINGLETON(UGameEngine);
+		//SINGLETON_NOFUNC(UGameEngine);
+		UGameEngine();
+	public:
+		static UGameEngine* MakeInst() {
+			return new UGameEngine();
+		}
+
+	private:
+		HINSTANCE hInst;
+		WCHAR* szTitle;
+		WCHAR* szWindowClass;
+		HWND targetHWnd;
+
+		MSG windowMsg;
+
+	private:  
+		bool WindowInit(int, int, HINSTANCE, HINSTANCE, LPWSTR, int, WNDPROC);
+
+	public:
+		bool InitializeGame(int, int, HINSTANCE, HINSTANCE, LPWSTR, int, WNDPROC);
+
+		bool CheckOneFrame();
+		void Tick();
+
+		void Release();
+
+	public:
+		MSG GetWndMessage();
+
+		void SendWndMessage(UINT);
 
 	public:
 		struct UGameState {
@@ -23,28 +59,40 @@ namespace spring {
 			unsigned int objectCount;
 			unsigned int layerCount;
 			unsigned int sceneCount;
+
+			bool isGameEnd;
 		};
+
+	private:
+		UGameState* currentState, * prevState;
+
+	public:
+		const UGameState* GetCurrentState() const;
 
 	private:
 		IPointer<UScene> currentScene;
 
 	public:
-		static void PushScene(IPointer<UScene>&);
+		void PushScene(IPointer<UScene>&);
 
-		static IPointer<UScene>& PopScene();
+		IPointer<UScene>& PopScene();
 
 	public:
-		static void ReplaceScene(IPointer<UScene>&);
-
+		void ReplaceScene(IPointer<UScene>&);
 
 	private:
 		IPointer<UCamera> mainCamera;
 
 	public:
-		static void InitializeStandardCamera();
-		static void ChangeMainCamera(IPointer<UCamera>&);
-		static IPointer<UCamera> GetMainCamera();
+		void InitializeStandardCamera();
+		void ChangeMainCamera(IPointer<UCamera>&);
+		IPointer<UCamera> GetMainCamera();
 
-	};
+	}; 
 
-}
+#ifndef UGAMEENGINE_DEFINE
+#define UGAMEENGINE_DEFINE
+	extern spring::UGameEngine* GEngine;
+#endif  
+
+} 

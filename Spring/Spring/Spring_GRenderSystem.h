@@ -10,7 +10,7 @@ namespace spring {
 	// ¡Ø CAUTION ¡Ø
 	class GRenderSystem {
 
-		SINGLETON(GRenderSystem);
+		SINGLETON_NOFUNC(GRenderSystem);
 
 	private:
 		const bool vSyncEnable;
@@ -18,8 +18,10 @@ namespace spring {
 		const float screenDepth;
 		const float screenNear;
 
+		FSize screenSize;
+
 	public:
-		static void Initialize(int, int, HWND);
+		void Initialize(int, int, HWND);
 
 		// About DX11
 	private:
@@ -30,12 +32,20 @@ namespace spring {
 		void Render();
 
 	public:
-		static void FrameRender();
-		static void ShutdownRenderingSys();
+		void FrameRender();
+		void ShutdownRenderingSys();
 
 	public:
-		static void SetModelRot(DirectX::XMFLOAT3);
-		static DirectX::XMFLOAT3 GetRot();
-	};
+		void SetModelRot(DirectX::XMFLOAT3);
+		DirectX::XMFLOAT3 GetRot() const;
 
-}
+	public:
+		FSize GetScreenSize() const;
+	}; 
+
+#ifndef GRENDERSYSTEM_DEFINE
+#define GRENDERSYSTEM_DEFINE
+	extern spring::GRenderSystem* Renderer;
+#endif  
+
+} 

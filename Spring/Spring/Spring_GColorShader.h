@@ -27,12 +27,12 @@ namespace spring {
 		ID3D11DeviceContext* deviceContext;
 
 	public:
-		static bool Initialize(ID3D11Device*, ID3D11DeviceContext*, HWND);
-		static void ShutdownShader();
+		bool Initialize(ID3D11Device*, ID3D11DeviceContext*, HWND);
+		void ShutdownShader();
 
 	public:
 		bool SetShaderParameters(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
-		static bool Render(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, int);
+		bool Render(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, int);
 
 	};
 
