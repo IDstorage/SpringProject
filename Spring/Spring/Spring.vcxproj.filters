@@ -28,6 +28,9 @@
     <Filter Include="소스 파일\Spring\Rendering\Shader">
       <UniqueIdentifier>{da83b33d-8210-4079-812d-63b69689424a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Spring\Math">
+      <UniqueIdentifier>{feb7216c-d7d6-478e-829b-6efa7f087caf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Spring_GColorShader.h">
@@ -41,15 +44,6 @@
     </ClInclude>
     <ClInclude Include="Spring_GRenderSystem.h">
       <Filter>헤더 파일\Spring\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Spring_FMath.h">
-      <Filter>헤더 파일\Spring</Filter>
-    </ClInclude>
-    <ClInclude Include="Spring_FMatrix4x4.h">
-      <Filter>헤더 파일\Spring</Filter>
-    </ClInclude>
-    <ClInclude Include="Spring_FVector2.h">
-      <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
     <ClInclude Include="Spring_HPreDef.h">
       <Filter>헤더 파일\Spring</Filter>
@@ -95,6 +89,21 @@
     </ClInclude>
     <ClInclude Include="Spring_UInputBinder.h">
       <Filter>헤더 파일\Spring</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FMath.h">
+      <Filter>헤더 파일\Spring\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FMatrix4x4.h">
+      <Filter>헤더 파일\Spring\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FVector2.h">
+      <Filter>헤더 파일\Spring\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FQuaternion.h">
+      <Filter>헤더 파일\Spring\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_FVector3.h">
+      <Filter>헤더 파일\Spring\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

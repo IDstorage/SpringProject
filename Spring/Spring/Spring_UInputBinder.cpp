@@ -71,6 +71,7 @@ void UInputBinder::ShutdownInput() {
 
 
 bool UInputBinder::ReadKeyboard() {
+	ZeroMemory(keyboardState, sizeof(keyboardState));
 	HRESULT result = keyboard->GetDeviceState(sizeof(keyboardState), (LPVOID)&keyboardState);
 
 	if (FAILED(result)) {
@@ -120,7 +121,7 @@ bool UInputBinder::UpdateInput() {
 			int a = 10;
 	}
 
-	for (auto iter = keyMap.begin(); iter != keyMap.end(); ++iter) {
+	for (auto iter = keyMap.begin(); iter != keyMap.end(); ++iter) { 
 
 		bool currentState = IsPressState(iter->first);
 		bool previousState = iter->second->GetPreviousState() == EKeyState::KS_PRESS;

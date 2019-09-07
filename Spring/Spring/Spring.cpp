@@ -50,7 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	//f();
 
-	spring::InputBinder->BindAction(spring::EK_Q, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateX, 1.0f));
+	spring::InputBinder->BindAction(spring::EK_Q, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_PRESS, spring::UInputBinder::Bind(RotateX, 45.0f));
 
 	MSG msg;
 

@@ -84,11 +84,11 @@ namespace spring {
 		SINGLETON_NOFUNC(UInputBinder)
 
 	private:
-		IDirectInput8* dxInput;
-		IDirectInputDevice8* keyboard;
-		IDirectInputDevice8* mouse;
+		LPDIRECTINPUT8 dxInput;
+		LPDIRECTINPUTDEVICE8 keyboard;
+		LPDIRECTINPUTDEVICE8 mouse;
 
-		unsigned char keyboardState[256];
+		BYTE keyboardState[256];
 		DIMOUSESTATE mouseState;
 
 		FSize screenSize;

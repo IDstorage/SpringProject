@@ -159,6 +159,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spring.h" />
+    <ClInclude Include="Spring_FQuaternion.h" />
+    <ClInclude Include="Spring_FVector3.h" />
     <ClInclude Include="Spring_IAlignedAllocationPolicy.h" />
     <ClInclude Include="Spring_UCamera.h" />
     <ClInclude Include="Spring_CTransform.h" />
