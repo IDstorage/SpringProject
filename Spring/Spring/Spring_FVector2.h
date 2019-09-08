@@ -5,10 +5,14 @@
 
 namespace spring {
 
+	class XMFLOAT2;
+	class XMFLOAT3;
+	class XMVECTOR;
+
 	class FVector2 {
 
 	public:
-		IProperty<float> x, y;
+		IProperty<float, EIPropertySetting::GET> x, y;
 
 	public:
 		FVector2(float = 0.0f, float = 0.0f);
