@@ -37,6 +37,22 @@ void RotateX(float deltaAngle) {
 	spring::Renderer->SetModelRot(e);
 }
 
+void RotateY(float deltaAngle) {
+	DirectX::XMFLOAT3 e = spring::Renderer->GetRot();
+	e.y += deltaAngle;
+	spring::Renderer->SetModelRot(e);
+}
+
+void RotateZ(float deltaAngle) {
+	DirectX::XMFLOAT3 e = spring::Renderer->GetRot();
+	e.z += deltaAngle;
+	spring::Renderer->SetModelRot(e);
+}
+
+void UndoRotate() {
+	spring::Renderer->SetModelRot(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+}
+
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -50,7 +66,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	//f();
 
-	spring::InputBinder->BindAction(spring::EK_Q, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_PRESS, spring::UInputBinder::Bind(RotateX, 45.0f));
+	float dt = 4.0f;
+
+	spring::InputBinder->BindAction(spring::EK_T, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateX, dt));
+	spring::InputBinder->BindAction(spring::EK_G, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateX, -dt));
+
+	spring::InputBinder->BindAction(spring::EK_Y, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateY, dt));
+	spring::InputBinder->BindAction(spring::EK_H, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateY, -dt));
+
+	spring::InputBinder->BindAction(spring::EK_U, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateZ, dt));
+	spring::InputBinder->BindAction(spring::EK_J, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateZ, -dt));
+
+	spring::InputBinder->BindAction(spring::EK_Z, spring::IHotKeyStruct{ false, true, false }, spring::EKeyState::KS_RELEASE, spring::UInputBinder::Bind(UndoRotate));
 
 	MSG msg;
 

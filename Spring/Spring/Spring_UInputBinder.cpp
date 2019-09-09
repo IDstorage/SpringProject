@@ -72,7 +72,7 @@ void UInputBinder::ShutdownInput() {
 
 bool UInputBinder::ReadKeyboard() {
 	ZeroMemory(keyboardState, sizeof(keyboardState));
-	HRESULT result = keyboard->GetDeviceState(sizeof(keyboardState), (LPVOID)&keyboardState);
+	HRESULT result = keyboard->GetDeviceState(sizeof(keyboardState), &keyboardState);
 
 	if (FAILED(result)) {
 		if (result == DIERR_INPUTLOST || result == DIERR_NOTACQUIRED)
@@ -98,7 +98,7 @@ bool UInputBinder::ReadMouse() {
 }
 
 bool UInputBinder::IsPressState(int index) {
-	return (keyboardState[index] & 0x80) == 1;
+	return (keyboardState[index] & 0x80);
 }
 
 
@@ -109,32 +109,29 @@ bool UInputBinder::UpdateInput() {
 	if (!ReadMouse())
 		return false;
 
-	mousePosition.x = FMath::Clamp(mousePosition.x + mouseState.lX, 0.0f, screenSize.x);
-	mousePosition.y = FMath::Clamp(mousePosition.y + mouseState.lY, 0.0f, screenSize.y);
+	mousePosition = FVector2(FMath::Clamp(mousePosition.x + mouseState.lX, 0.0f, screenSize.x),
+		FMath::Clamp(mousePosition.y + mouseState.lY, 0.0f, screenSize.y));
 
 	currentHotkey.isLeftAlt = IsPressState(DIK_LALT);
 	currentHotkey.isLeftCtrl = IsPressState(DIK_LCONTROL);
 	currentHotkey.isLeftShift = IsPressState(DIK_LSHIFT);
-
-	for (int i = 0; i < 256; i++) {
-		if (IsPressState(i))
-			int a = 10;
-	}
 
 	for (auto iter = keyMap.begin(); iter != keyMap.end(); ++iter) { 
 
 		bool currentState = IsPressState(iter->first);
 		bool previousState = iter->second->GetPreviousState() == EKeyState::KS_PRESS;
 
+		UInputBinder::InputFuncInfo* info = iter->second;
+
 		// Press Function
 		if ((previousState == false) && (currentState == true))
-			iter->second->CanTrigger(currentHotkey, EKeyState::KS_PRESS);
+			info->Execute(info->CanTrigger(currentHotkey, EKeyState::KS_PRESS));
 		// Hold Function
 		else if ((previousState == true) && (currentState == true))
-			iter->second->CanTrigger(currentHotkey, EKeyState::KS_HOLD);
+			info->Execute(info->CanTrigger(currentHotkey, EKeyState::KS_HOLD));
 		// Release Function
 		else if ((previousState == true) && (currentState == false))
-			iter->second->CanTrigger(currentHotkey, EKeyState::KS_RELEASE);
+			info->Execute(info->CanTrigger(currentHotkey, EKeyState::KS_RELEASE));
 
 		iter->second->UpdatePrevState(currentState ? EKeyState::KS_PRESS : EKeyState::KS_RELEASE);
 

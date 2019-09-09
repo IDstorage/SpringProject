@@ -88,7 +88,7 @@ namespace spring {
 		LPDIRECTINPUTDEVICE8 keyboard;
 		LPDIRECTINPUTDEVICE8 mouse;
 
-		BYTE keyboardState[256];
+		unsigned char keyboardState[256];
 		DIMOUSESTATE mouseState;
 
 		FSize screenSize;
@@ -133,6 +133,9 @@ namespace spring {
 			}
 
 			void Execute(int index) {
+				if (index == -1)
+					return;
+
 				InputFuncInfo* head = this;
 
 				while (index-- > 0)

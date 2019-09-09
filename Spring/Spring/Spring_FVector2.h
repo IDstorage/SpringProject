@@ -3,11 +3,13 @@
 #include "Spring_IProperty.h"
 #include "Spring_FMath.h"
 
+#include "Spring_GDX11Header.h"
+
 namespace spring {
 
-	class XMFLOAT2;
+	/*class XMFLOAT2;
 	class XMFLOAT3;
-	class XMVECTOR;
+	class XMVECTOR;*/
 
 	class FVector2 {
 
@@ -17,6 +19,10 @@ namespace spring {
 	public:
 		FVector2(float = 0.0f, float = 0.0f);
 		FVector2(const FVector2&);
+
+	public:
+		DirectX::XMFLOAT2 DXFloat2() const;
+		DirectX::XMVECTOR DXVector() const;
 
 	public:
 		FVector2& operator=(const FVector2&);

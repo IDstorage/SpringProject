@@ -1,5 +1,6 @@
 #include "Spring_FVector2.h"
 
+using namespace DirectX;
 using namespace spring;
 
 
@@ -8,6 +9,15 @@ FVector2::FVector2(float _x, float _y)
 
 FVector2::FVector2(const FVector2& v)
 	: x(v.x), y(v.y) {}
+
+
+XMFLOAT2 FVector2::DXFloat2() const {
+	return XMFLOAT2(x, y);
+}
+
+XMVECTOR FVector2::DXVector() const {
+	return XMLoadFloat2(&DXFloat2());
+}
 
 
 FVector2& FVector2::operator=(const FVector2& v) {

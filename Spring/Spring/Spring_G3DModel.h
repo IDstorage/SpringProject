@@ -7,6 +7,8 @@
 
 namespace spring {
 
+	class FQuaternion;
+
 	class G3DModel : public IAlignedAllocationPolicy<16> {
 
 		struct VertexType {
