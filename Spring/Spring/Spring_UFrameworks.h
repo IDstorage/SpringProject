@@ -117,7 +117,7 @@ namespace spring {
 
 	};
 
-
+	class CTransform;
 	class UObject : public URef {
 
 	protected:
@@ -132,6 +132,12 @@ namespace spring {
 
 	public:
 		const std::string& GetObjectName() const;
+
+	private:
+		IPointer<CTransform> transform;
+
+	public:
+		IPointer<CTransform> GetTransform() const;
 
 	public:
 		virtual void Init();

@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Spring_FMath.h"
+#include "Spring_FVector3.h"
+
 #include <memory>
 
 namespace spring {
 
 	class FMatrix4x4 {
-	public:
-		static FMatrix4x4 identityMatrix;
-
+		
 	private:
 		double elements[4][4];
 
@@ -21,6 +21,13 @@ namespace spring {
 			double operator[](int index) {
 				return elements[index];
 			}
+		};
+
+	public:
+		enum class EMTXRotAxis {
+			X,
+			Y,
+			Z
 		};
 
 	public:
@@ -82,11 +89,76 @@ namespace spring {
 		}
 
 	public:
-		enum class EMTXRotAxis {
-			X,
-			Y,
-			Z
-		};
+		static FMatrix4x4 GetTranslateMatrix(const FVector3& pos) {
+			FMatrix4x4 newMat = FMatrix4x4(
+				{
+					{1, 0, 0, 0},
+					{0, 1, 0, 0},
+					{0, 0, 1, 0},
+					{pos.x, pos.y, pos.z, 1}
+				}
+			);
+			return newMat;
+		}
+
+		static FMatrix4x4 GetRotationMatrix(float radian, EMTXRotAxis axis) {
+			FMatrix4x4 newMat;
+
+			float sinResult = FMath::Sin(radian);
+			float cosResult = FMath::Cos(radian);
+
+			switch (axis) {
+			case EMTXRotAxis::X:
+				newMat = FMatrix4x4(
+					{
+						{1, 0, 0, 0},
+						{0, cosResult, sinResult, 0},
+						{0, -sinResult, cosResult, 0},
+						{0, 0, 0, 1}
+					}); 
+				break;
+			case EMTXRotAxis::Y:
+				newMat = FMatrix4x4(
+					{
+						{cosResult, 0, -sinResult, 0},
+						{0, 1, 0, 0},
+						{sinResult, 0, cosResult, 0},
+						{0, 0, 0, 1}
+					});
+				break;
+			case EMTXRotAxis::Z:
+				newMat = FMatrix4x4(
+					{
+						{cosResult, sinResult, 0, 0},
+						{-sinResult, cosResult, 0, 0},
+						{0, 0, 1, 0},
+						{0, 0, 0, 1}
+					});
+				break;
+			}
+
+			return newMat;
+		}
+
+		static FMatrix4x4 GetScaleMatrix(const FVector3& scale) {
+			FMatrix4x4 newMat = FMatrix4x4(
+				{
+					{scale.x, 0, 0, 0},
+					{0, scale.y, 0, 0},
+					{0, 0, scale.z, 0},
+					{0, 0, 0, 1}
+				}
+			);
+			return newMat;
+		}
+
+	public:
+		static FMatrix4x4 identityMatrix; 
+
+
+		// UNUSED
+	public:
+		
 
 		static void Rotation(FMatrix4x4& mtx, EMTXRotAxis axis, double degree) {
 

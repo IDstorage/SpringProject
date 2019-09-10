@@ -113,9 +113,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			e = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 		spring::Renderer->SetModelRot(e);*/
 
-		spring::GEngine->Tick(); 
-
-		spring::Renderer->FrameRender();
+		spring::GEngine->Tick();  
     }
 
 	spring::GEngine->Release();

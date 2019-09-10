@@ -31,6 +31,15 @@
     <Filter Include="헤더 파일\Spring\Math">
       <UniqueIdentifier>{feb7216c-d7d6-478e-829b-6efa7f087caf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Spring\Math">
+      <UniqueIdentifier>{5ffb3440-cd44-4f25-adbb-00278d02546b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Spring\Component">
+      <UniqueIdentifier>{7c5312c1-a945-4f1d-bd06-4e75aec85e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Spring\Component">
+      <UniqueIdentifier>{d44c0da8-0c17-487d-9a77-4d7e6f7e0e9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Spring_GColorShader.h">
@@ -78,9 +87,6 @@
     <ClInclude Include="Spring_G3DModel.h">
       <Filter>헤더 파일\Spring\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="Spring_CTransform.h">
-      <Filter>헤더 파일\Spring</Filter>
-    </ClInclude>
     <ClInclude Include="Spring_UCamera.h">
       <Filter>헤더 파일\Spring</Filter>
     </ClInclude>
@@ -107,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="Spring_HMath.h">
       <Filter>헤더 파일\Spring\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_CTransform.h">
+      <Filter>헤더 파일\Spring\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +144,6 @@
     <ClCompile Include="Spring_GRenderSystem.cpp">
       <Filter>소스 파일\Spring\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Spring_FVector2.cpp">
-      <Filter>소스 파일\Spring</Filter>
-    </ClCompile>
     <ClCompile Include="Spring_ULayer.cpp">
       <Filter>소스 파일\Spring</Filter>
     </ClCompile>
@@ -162,17 +168,23 @@
     <ClCompile Include="Spring_UGameEngine.cpp">
       <Filter>소스 파일\Spring</Filter>
     </ClCompile>
-    <ClCompile Include="Spring_FMatrix4x4.cpp">
-      <Filter>소스 파일\Spring</Filter>
-    </ClCompile>
     <ClCompile Include="Spring_UInputBinder.cpp">
       <Filter>소스 파일\Spring</Filter>
     </ClCompile>
-    <ClCompile Include="Spring_CTransform.cpp">
-      <Filter>소스 파일\Spring</Filter>
+    <ClCompile Include="Spring_FMatrix4x4.cpp">
+      <Filter>소스 파일\Spring\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_FVector2.cpp">
+      <Filter>소스 파일\Spring\Math</Filter>
     </ClCompile>
     <ClCompile Include="Spring_FVector3.cpp">
-      <Filter>소스 파일\Spring</Filter>
+      <Filter>소스 파일\Spring\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_CTransform.cpp">
+      <Filter>소스 파일\Spring\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_FQuaternion.cpp">
+      <Filter>소스 파일\Spring\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

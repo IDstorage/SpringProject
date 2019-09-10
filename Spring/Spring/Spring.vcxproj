@@ -205,6 +205,7 @@
     <ClCompile Include="Spring.cpp" />
     <ClCompile Include="Spring_CTransform.cpp" />
     <ClCompile Include="Spring_FMatrix4x4.cpp" />
+    <ClCompile Include="Spring_FQuaternion.cpp" />
     <ClCompile Include="Spring_FVector2.cpp" />
     <ClCompile Include="Spring_FVector3.cpp" />
     <ClCompile Include="Spring_G3DModel.cpp" />

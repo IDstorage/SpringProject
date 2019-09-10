@@ -2,7 +2,10 @@
 
 #include "Spring_IProperty.h" 
 #include "Spring_GDX11Header.h"
+
 #include "Spring_FMath.h"
+
+#include "Spring_FVector3.h"
 
 
 namespace spring { 
@@ -34,12 +37,14 @@ namespace spring {
 		static float Dot(const FQuaternion&, const FQuaternion&);
 
 	public:
-		static const FQuaternion& Lerp(const FQuaternion&, const FQuaternion&, float);
-		static const FQuaternion& SLerp(const FQuaternion&, const FQuaternion&, float);
+		static const FQuaternion Lerp(const FQuaternion&, const FQuaternion&, float);
+		static const FQuaternion SLerp(const FQuaternion&, const FQuaternion&, float);
 
 	public:
-		static FQuaternion& Euler(const FVector3&);
-		static FQuaternion& Euler(float, float, float);
+		static FQuaternion Euler(const FVector3&);
+		static FQuaternion Euler(float, float, float);
+
+		static FVector3 ToEulerAngle(const FQuaternion&);
 	}; 
 
 }

@@ -123,8 +123,8 @@ namespace spring {
 				while (head != nullptr) {
 					if (state == trigState
 						&& (hotkey.isLeftShift == trigHotKey.isLeftShift
-							|| hotkey.isLeftCtrl == trigHotKey.isLeftCtrl
-							|| hotkey.isLeftAlt == trigHotKey.isLeftAlt))
+							&& hotkey.isLeftCtrl == trigHotKey.isLeftCtrl
+							&& hotkey.isLeftAlt == trigHotKey.isLeftAlt))
 						return n;
 
 					head = head->nextInfo;
