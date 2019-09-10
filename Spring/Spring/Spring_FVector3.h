@@ -41,6 +41,20 @@ namespace spring {
 
 	public:
 		static const FVector3& Lerp(const FVector3&, const FVector3&, float);
+
+
+	public:
+		static IProperty<FVector3, EIPropertySetting::GET> zero;
+		static IProperty<FVector3, EIPropertySetting::GET> one;
+
+		static IProperty<FVector3, EIPropertySetting::GET> left;
+		static IProperty<FVector3, EIPropertySetting::GET> right;
+
+		static IProperty<FVector3, EIPropertySetting::GET> up;
+		static IProperty<FVector3, EIPropertySetting::GET> down;
+
+		static IProperty<FVector3, EIPropertySetting::GET> forward;
+		static IProperty<FVector3, EIPropertySetting::GET> backward;
 	};
 
 	using FEulerAngle = FVector3;

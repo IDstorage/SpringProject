@@ -7,4 +7,3 @@
 
 #include "Spring_IPointer.h"
 #include "Spring_IProperty.h"
-#include "Spring_FVector2.h"

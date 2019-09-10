@@ -4,6 +4,16 @@ using namespace DirectX;
 using namespace spring;
 
 
+IProperty<FVector2, EIPropertySetting::GET> FVector2::zero = FVector2(0.0f, 0.0f);
+IProperty<FVector2, EIPropertySetting::GET> FVector2::one = FVector2(1.0f, 1.0f);
+
+IProperty<FVector2, EIPropertySetting::GET> FVector2::left = FVector2(-1.0f, 0.0f);
+IProperty<FVector2, EIPropertySetting::GET> FVector2::right = FVector2(1.0f, 0.0f);
+
+IProperty<FVector2, EIPropertySetting::GET> FVector2::up = FVector2(0.0f, 1.0f);
+IProperty<FVector2, EIPropertySetting::GET> FVector2::down = FVector2(0.0f, -1.0f);
+
+
 FVector2::FVector2(float _x, float _y)
 	: x(_x), y(_y) {}
 

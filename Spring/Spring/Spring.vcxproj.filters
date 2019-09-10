@@ -105,6 +105,9 @@
     <ClInclude Include="Spring_FVector3.h">
       <Filter>헤더 파일\Spring\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Spring_HMath.h">
+      <Filter>헤더 파일\Spring\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spring.rc">
@@ -163,6 +166,12 @@
       <Filter>소스 파일\Spring</Filter>
     </ClCompile>
     <ClCompile Include="Spring_UInputBinder.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_CTransform.cpp">
+      <Filter>소스 파일\Spring</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_FVector3.cpp">
       <Filter>소스 파일\Spring</Filter>
     </ClCompile>
   </ItemGroup>

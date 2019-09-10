@@ -3,6 +3,8 @@
 #include "Spring_HPreDef.h"
 #include "Spring_HPreHeader.h"
 
+#include "Spring_HMath.h"
+
 #include <functional>
 
 #include <dinput.h>

@@ -1,4 +1,5 @@
 #include "Spring_G3DModel.h"
+#include "Spring_FMath.h"
 
 using namespace DirectX;
 using namespace spring;

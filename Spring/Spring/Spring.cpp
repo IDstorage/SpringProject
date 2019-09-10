@@ -66,7 +66,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	//f();
 
-	float dt = 4.0f;
+	float dt = 4.0f; 
 
 	spring::InputBinder->BindAction(spring::EK_T, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateX, dt));
 	spring::InputBinder->BindAction(spring::EK_G, spring::IHotKeyStruct{ false, false, false }, spring::EKeyState::KS_HOLD, spring::UInputBinder::Bind(RotateX, -dt));

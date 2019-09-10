@@ -45,6 +45,17 @@ namespace spring {
 
 	public:
 		static const FVector2& Lerp(const FVector2&, const FVector2&, float);
+
+
+	public:
+		static IProperty<FVector2, EIPropertySetting::GET> zero;
+		static IProperty<FVector2, EIPropertySetting::GET> one;
+
+		static IProperty<FVector2, EIPropertySetting::GET> left;
+		static IProperty<FVector2, EIPropertySetting::GET> right;
+		
+		static IProperty<FVector2, EIPropertySetting::GET> up;
+		static IProperty<FVector2, EIPropertySetting::GET> down;
 	};
 
 	using FSize = FVector2;

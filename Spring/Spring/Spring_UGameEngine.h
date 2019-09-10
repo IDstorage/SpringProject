@@ -3,6 +3,8 @@
 #include "Spring_IPointer.h" 
 #include "Spring_HPreDef.h"
 
+#include "Spring_HMath.h"
+
 #include "Spring_UFrameworks.h"
 #include "Spring_GRenderSystem.h"
 #include "Spring_UInputBinder.h"

@@ -71,6 +71,9 @@ void UInputBinder::ShutdownInput() {
 
 
 bool UInputBinder::ReadKeyboard() {
+	if (keyboard == nullptr)
+		return false;
+
 	ZeroMemory(keyboardState, sizeof(keyboardState));
 	HRESULT result = keyboard->GetDeviceState(sizeof(keyboardState), &keyboardState);
 
@@ -85,6 +88,9 @@ bool UInputBinder::ReadKeyboard() {
 }
 
 bool UInputBinder::ReadMouse() {
+	if (mouse == nullptr)
+		return false;
+
 	HRESULT result = mouse->GetDeviceState(sizeof(mouseState), (LPVOID)&mouseState);
 
 	if (FAILED(result)) {

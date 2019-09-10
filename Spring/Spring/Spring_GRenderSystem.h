@@ -5,6 +5,8 @@
 
 #include "Spring_HPreDef.h"
 
+#include "Spring_HMath.h"
+
 namespace spring {
 
 	// ¡Ø CAUTION ¡Ø

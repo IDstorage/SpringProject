@@ -161,6 +161,7 @@
     <ClInclude Include="Spring.h" />
     <ClInclude Include="Spring_FQuaternion.h" />
     <ClInclude Include="Spring_FVector3.h" />
+    <ClInclude Include="Spring_HMath.h" />
     <ClInclude Include="Spring_IAlignedAllocationPolicy.h" />
     <ClInclude Include="Spring_UCamera.h" />
     <ClInclude Include="Spring_CTransform.h" />
@@ -202,8 +203,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Spring.cpp" />
+    <ClCompile Include="Spring_CTransform.cpp" />
     <ClCompile Include="Spring_FMatrix4x4.cpp" />
     <ClCompile Include="Spring_FVector2.cpp" />
+    <ClCompile Include="Spring_FVector3.cpp" />
     <ClCompile Include="Spring_G3DModel.cpp" />
     <ClCompile Include="Spring_GColorShader.cpp" />
     <ClCompile Include="Spring_GD3DClass.cpp" />

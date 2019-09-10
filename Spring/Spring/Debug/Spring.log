@@ -1,6 +1,6 @@
 ﻿  Spring.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(82,6): warning C4101:  'msg' :참조되지 않은 지역 변수입니다.
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(216,5): warning C4065:  switch문에 'default'가 있으나 'case' 레이블이 없습니다.
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(216,5): warning C4065: C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_UInputBinder.h(157) : warning C4717: 'spring::UInputBinder::InputFuncInfo::AddInputFuncInfo': 모든 제어 경로에서 재귀적입니다. 함수로 인해 런타임 스택 오버플로가 발생합니다.
+C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(84,6): warning C4101:  'msg' :참조되지 않은 지역 변수입니다.
+C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(218,5): warning C4065:  switch문에 'default'가 있으나 'case' 레이블이 없습니다.
+C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(218,5): warning C4065: C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_UInputBinder.h(159) : warning C4717: 'spring::UInputBinder::InputFuncInfo::AddInputFuncInfo': 모든 제어 경로에서 재귀적입니다. 함수로 인해 런타임 스택 오버플로가 발생합니다.
   Spring.vcxproj -> C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring.exe

@@ -1,15 +1,11 @@
 #pragma once
 
-#include "Spring_IProperty.h"
+#include "Spring_IProperty.h" 
+#include "Spring_GDX11Header.h"
 #include "Spring_FMath.h"
 
 
-namespace spring {
-
-	class FVector3;
-
-	class XMFLOAT4;
-	class XMVECTOR;
+namespace spring { 
 
 	class FQuaternion {
 
@@ -22,8 +18,8 @@ namespace spring {
 		FQuaternion(const FQuaternion&);
 
 	public:
-		XMFLOAT4 DXFloat4() const;
-		XMVECTOR DXVector() const;
+		DirectX::XMFLOAT4 DXFloat4() const;
+		DirectX::XMVECTOR DXVector() const;
 
 	public:
 		FQuaternion& operator=(const FQuaternion&); 
@@ -44,8 +40,6 @@ namespace spring {
 	public:
 		static FQuaternion& Euler(const FVector3&);
 		static FQuaternion& Euler(float, float, float);
-	};
-
-	using FEulerAngle = FQuaternion;
+	}; 
 
 }

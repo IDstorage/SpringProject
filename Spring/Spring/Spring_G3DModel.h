@@ -5,9 +5,7 @@
 
 #include "Spring_IAlignedAllocationPolicy.h"
 
-namespace spring {
-
-	class FQuaternion;
+namespace spring { 
 
 	class G3DModel : public IAlignedAllocationPolicy<16> {
 
