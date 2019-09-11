@@ -35,9 +35,9 @@ FVector3 CTransform::GetEulerAngle() const {
 //	eulerAngle = FQuaternion::ToEulerAngle(quat);
 //}
 //
-//FQuaternion CTransform::GetRotation() const {
-//	return FQuaternion::Euler(eulerAngle);
-//}
+FQuaternion CTransform::GetRotation() const {
+	return FQuaternion::Euler(eulerAngle);
+}
 
 void CTransform::SetLocalScale(const FVector3& s) {
 	localScale = s;
