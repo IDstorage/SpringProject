@@ -161,6 +161,8 @@
     <ClInclude Include="Spring.h" />
     <ClInclude Include="Spring_FQuaternion.h" />
     <ClInclude Include="Spring_FVector3.h" />
+    <ClInclude Include="Spring_GTexture.h" />
+    <ClInclude Include="Spring_GTextureShader.h" />
     <ClInclude Include="Spring_HMath.h" />
     <ClInclude Include="Spring_IAlignedAllocationPolicy.h" />
     <ClInclude Include="Spring_UCamera.h" />
@@ -212,6 +214,8 @@
     <ClCompile Include="Spring_GColorShader.cpp" />
     <ClCompile Include="Spring_GD3DClass.cpp" />
     <ClCompile Include="Spring_GRenderSystem.cpp" />
+    <ClCompile Include="Spring_GTexture.cpp" />
+    <ClCompile Include="Spring_GTextureShader.cpp" />
     <ClCompile Include="Spring_UCamera.cpp" />
     <ClCompile Include="Spring_UComponent.cpp" />
     <ClCompile Include="Spring_UGameEngine.cpp" />
@@ -219,6 +223,20 @@
     <ClCompile Include="Spring_ULayer.cpp" />
     <ClCompile Include="Spring_UObject.cpp" />
     <ClCompile Include="Spring_UScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Spring_SHTexturePixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Spring_SHTextureVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

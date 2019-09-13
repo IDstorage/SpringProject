@@ -117,6 +117,12 @@
     <ClInclude Include="Spring_CTransform.h">
       <Filter>헤더 파일\Spring\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Spring_GTextureShader.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Spring_GTexture.h">
+      <Filter>헤더 파일\Spring\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spring.rc">
@@ -186,6 +192,12 @@
     <ClCompile Include="Spring_FQuaternion.cpp">
       <Filter>소스 파일\Spring\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Spring_GTextureShader.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_GTexture.cpp">
+      <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Spring_SHColorPixelShader.hlsl">
@@ -194,5 +206,13 @@
     <None Include="Spring_SHColorVertexShader.hlsl">
       <Filter>소스 파일\Spring\Rendering\Shader</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Spring_SHTextureVertexShader.hlsl">
+      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Spring_SHTexturePixelShader.hlsl">
+      <Filter>소스 파일\Spring\Rendering\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
