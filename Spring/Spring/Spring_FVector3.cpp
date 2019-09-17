@@ -44,6 +44,13 @@ FVector3& FVector3::operator+(const FVector3& v) {
 	return newV;
 }
 
+FVector3& FVector3::operator+=(const FVector3& v) {
+	this->x = this->x + v.x;
+	this->y = this->y + v.y;
+	this->z = this->z + v.z;
+	return *this;
+}
+
 FVector3& FVector3::operator-(const FVector3& v) {
 	FVector3 newV = FVector3(this->x - v.x, this->y - v.y);
 	return newV;
@@ -52,6 +59,13 @@ FVector3& FVector3::operator-(const FVector3& v) {
 FVector3& FVector3::operator*(const FVector3& v) {
 	FVector3 newV = FVector3(this->x * v.x, this->y * v.y);
 	return newV;
+}
+
+FVector3& FVector3::operator*=(const FVector3& v) {
+	this->x = this->x * v.x;
+	this->y = this->y * v.y;
+	this->z = this->z * v.z;
+	return *this;
 }
 
 FVector3& FVector3::operator*(float value) {

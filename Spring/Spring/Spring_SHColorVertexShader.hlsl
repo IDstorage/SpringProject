@@ -7,7 +7,6 @@ cbuffer MatrixBuffer {
 struct VertexInput {
 	float4 position : POSITION;
 	float4 color : COLOR;
-	//matrix mat : MATRIX;
 };
 
 struct PixelInput {

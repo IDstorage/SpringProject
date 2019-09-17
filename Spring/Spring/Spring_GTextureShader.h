@@ -33,8 +33,8 @@ namespace spring {
 		void ShutdownShader();
 
 	public:
-		bool SetShaderParameters(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
-		bool Render(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, int);
+		bool SetShaderParameters(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, ID3D11ShaderResourceView*);
+		bool Render(DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, int, ID3D11ShaderResourceView*);
 
 	};
 

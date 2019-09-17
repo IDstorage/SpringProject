@@ -30,6 +30,9 @@ namespace spring {
 		GD3DClass* d3dClass;
 		G3DModel* testModel;
 
+	public:
+		GD3DClass* GetD3DClass() const;
+
 	private:
 		void Render();
 

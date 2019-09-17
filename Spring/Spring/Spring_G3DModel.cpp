@@ -1,5 +1,6 @@
 #include "Spring_G3DModel.h"
 #include "Spring_FMath.h"
+#include "Spring_GRenderSystem.h"
 
 using namespace DirectX;
 using namespace spring;
@@ -12,64 +13,51 @@ G3DModel::G3DModel(const G3DModel& m) {}
 G3DModel::~G3DModel() {}
 
 
-bool G3DModel::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext) {
+bool G3DModel::Initialize(const G3DModel::VertexListType& vList, const G3DModel::IndexListType& indexList, char* fileName) {
 
-	this->device = device;
-	this->deviceContext = deviceContext;
+	this->device = Renderer->GetD3DClass()->GetDevice();
+	this->deviceContext = Renderer->GetD3DClass()->GetDeviceContext();
 
-	vertexCount = 8;
-	indexCount = 36;
+	vertexCount = vList.size();
+	indexCount = indexList.size();
 
-	position = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	eulerAngle = XMFLOAT3(0.0f, 0.0f, 0.0f); 
+	position = FVector3(0.0f, 0.0f, 0.0f);
+	eulerAngle = FVector3(0.0f, 0.0f, 0.0f);
+	localScale = FVector3(1.0f, 1.0f, 1.0f);
 
-	lookAtVector = XMFLOAT3(0.0f, 0.0f, -1.0f);
-	 
-	vertexList[0] = XMFLOAT3(-1.0f, -1.0f, -1.0f);
-	vertexList[1] = XMFLOAT3(-1.0f, +1.0f, -1.0f);
-	vertexList[2] = XMFLOAT3(+1.0f, +1.0f, -1.0f);
-	vertexList[3] = XMFLOAT3(+1.0f, -1.0f, -1.0f);
-	vertexList[4] = XMFLOAT3(-1.0f, -1.0f, +1.0f);
-	vertexList[5] = XMFLOAT3(-1.0f, +1.0f, +1.0f);
-	vertexList[6] = XMFLOAT3(+1.0f, +1.0f, +1.0f);
-	vertexList[7] = XMFLOAT3(+1.0f, -1.0f, +1.0f);
+	lookAtVector = FVector3(0.0f, 0.0f, -1.0f);
+
+	vertexList = vList;
 
 	VertexType* vertices = new VertexType[vertexCount];
 	if (!vertices)
 		return false;
 
-	vertices[0] = { vertexList[0], XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
-	vertices[1] = { vertexList[1], XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f) };
-	vertices[2] = { vertexList[2], XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f) };
-	vertices[3] = { vertexList[3], XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f) };
-	vertices[4] = { vertexList[4], XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f) };
-	vertices[5] = { vertexList[5], XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f) };
-	vertices[6] = { vertexList[6], XMFLOAT4(0.5f, 1.0f, 0.5f, 1.0f) };
-	vertices[7] = { vertexList[7], XMFLOAT4(0.25f, 0.0f, 0.75f, 1.0f) };
-
 	for (int i = 0; i < vertexCount; i++) {
-		vertices[i].position = XMFLOAT3(vertices[i].position.x + position.x, vertices[i].position.y + position.y, vertices[i].position.z + position.z);
+		vertices[i] = *(vertexList.begin() + i);
 
-		float basicRad = FMath::Sqrt(vertexList[i].x * vertexList[i].x + vertexList[i].y * vertexList[i].y + vertexList[i].z * vertexList[i].z);
+		vertices[i].position += position;//FVector3(vertices[i].position.x + position.x, vertices[i].position.y + position.y, vertices[i].position.z + position.z);
 
-		vertVectorList[i] = XMFLOAT3( 
-			vertices[i].position.x - lookAtVector.x,
-			vertices[i].position.y - lookAtVector.y,
-			vertices[i].position.z - lookAtVector.z
-		);
+		//float basicRad = vertices[i].position.Magnitude();
 
-		float basicAngleY = FMath::ATan2(vertexList[i].z, vertexList[i].x);
-		
-		if ((vertexList[i].z * vertexList[i].x) > 0.0f && vertexList[i].y < 0.0f)
-			basicRad *= -1;
-		float basicAngleZ = FMath::ATan2(vertexList[i].y, basicRad);//FMath::ACos(vertexList[i].z / basicRad);
-		vertexBasicAngle[i] = XMFLOAT3(basicRad, basicAngleY, basicAngleZ);
+		//vertVectorList[i] = XMFLOAT3( 
+		//	vertices[i].position.x - lookAtVector.x,
+		//	vertices[i].position.y - lookAtVector.y,
+		//	vertices[i].position.z - lookAtVector.z
+		//);
+
+		//float basicAngleY = FMath::ATan2(vertexList[i].z, vertexList[i].x);
+		//
+		//if ((vertexList[i].z * vertexList[i].x) > 0.0f && vertexList[i].y < 0.0f)
+		//	basicRad *= -1;
+		//float basicAngleZ = FMath::ATan2(vertexList[i].y, basicRad);//FMath::ACos(vertexList[i].z / basicRad);
+		//vertexBasicAngle[i] = XMFLOAT3(basicRad, basicAngleY, basicAngleZ);
 	}
 
 	//basicLookRot = XMFLOAT3(0.0f, FMath::ATan2(lookAtVector.z, lookAtVector.x), FMath::ATan2(lookAtVector.y, lookAtVector.x));
-	basicLookRot = XMFLOAT3(0.0f, 90.0f * FMath::Deg2Rad, 0.0f);
+	//basicLookRot = XMFLOAT3(0.0f, 90.0f * FMath::Deg2Rad, 0.0f);
 
-	unsigned long* indices = new unsigned long[36]{
+	unsigned long* indices = new unsigned long[indexCount];/*{
 		0, 1, 2,
 		0, 2, 3,
 
@@ -87,7 +75,9 @@ bool G3DModel::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 
 		4, 0, 3,
 		4, 3, 7
-	};
+	};*/
+	for (int i = 0; i < indexCount; i++)
+		indices[i] = *(indexList.begin() + i);
 
 	// 정적 버텍스 버퍼 구조체
 	D3D11_BUFFER_DESC vertexBufferDesc;
@@ -143,7 +133,7 @@ bool G3DModel::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceConte
 	delete[] indices;
 	indices = nullptr;
 
-	return true;
+	return LoadTexture(fileName);
 }
 
 void G3DModel::Release() {
@@ -158,10 +148,23 @@ void G3DModel::Release() {
 	}
 }
 
-void G3DModel::Render(ID3D11DeviceContext* deviceContext) {
+void G3DModel::Render() {
 	
 
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+
+bool G3DModel::LoadTexture(char* fileName) {
+	targetTexture = new GTexture();
+	if (!targetTexture)
+		return false;
+
+	return targetTexture->Initialize(device, deviceContext, fileName);
+}
+
+void G3DModel::ReleaseTexture() {
+	targetTexture->Release();
 }
 
 
@@ -169,118 +172,24 @@ int G3DModel::GetIndexCount() const {
 	return indexCount;
 }
 
-
-
-XMFLOAT3 G3DModel::RotateX(XMFLOAT3 pos, float angle) {
-	return RotateZ(
-		RotateY(
-			RotateZ(pos, angle),
-			angle
-		),
-		-angle
-	);
+ID3D11ShaderResourceView* G3DModel::GetTexture() const {
+	return targetTexture->GetTexture();
 }
 
-XMFLOAT3 G3DModel::RotateY(XMFLOAT3 pos, float angle) {
 
-	float r = FMath::Sqrt(pos.x * pos.x + pos.z * pos.z);
-
-	return XMFLOAT3(
-		r * FMath::Cos(angle),
-		pos.y,
-		r * FMath::Sin(angle)
-	);
-}
-
-XMFLOAT3 G3DModel::RotateZ(XMFLOAT3 pos, float angle) {
-	float r = FMath::Sqrt(pos.x * pos.x + pos.y * pos.y);
-
-	return XMFLOAT3(
-		r * FMath::Cos(angle),
-		r * FMath::Sin(angle),
-		pos.z
-	);
-}
-
-XMFLOAT3 G3DModel::ChangeToSphericalCoord(int index) {  
-
-	XMFLOAT3 yawPithRoll = XMFLOAT3(eulerAngle.y, eulerAngle.z, eulerAngle.x);
-
-	float sinPith = FMath::Sin_Deg(yawPithRoll.x / 2), cosPith = FMath::Cos_Deg(yawPithRoll.x / 2);
-	float sinYaw = FMath::Sin_Deg(yawPithRoll.y / 2), cosYaw = FMath::Cos_Deg(yawPithRoll.y / 2);
-	float sinRoll = FMath::Sin_Deg(yawPithRoll.z / 2), cosRoll = FMath::Cos_Deg(yawPithRoll.z / 2);
-
-	XMVECTOR q = XMLoadFloat4(new XMFLOAT4(
-		sinRoll * cosPith * cosYaw - cosRoll * sinPith * sinYaw,
-		cosRoll * sinPith * cosYaw + sinRoll * cosPith * sinYaw,
-		cosRoll * cosPith * sinYaw - sinRoll * sinPith * cosYaw,
-		cosRoll * cosPith * cosYaw + sinRoll * sinPith * sinYaw
-	));
-
-	XMFLOAT3 local;
-	XMStoreFloat3(&local, XMVector3Rotate(XMLoadFloat3(&vertexList[index]), q));
-
-	return local;
-
-	//return RotateZ(vertexList[index], alphaZ);
-	//return RotateZ(RotateY(vertexList[index], alphaY), alphaZ);
-	//return RotateZ(RotateY(RotateX(vertexList[index], alphaX), alphaY), alphaZ);
-
-	//float basicRad = FMath::Sqrt(vertexList[index].x * vertexList[index].x + vertexList[index].y * vertexList[index].y + vertexList[index].z * vertexList[index].z);
-	//float newRad = basicRad * FMath::Sin_Deg(euler.z);
-
-	//XMFLOAT3 spher = XMFLOAT3(
-	//	basicRad,
-	//	FMath::ATan2(pos.y, pos.x),
-	//	FMath::ACos(pos.z / basicRad) 
-	//);
-
-	////spher.x += euler.x * FMath::Deg2Rad;
-	//spher.y += euler.y * FMath::Deg2Rad;
-	////spher.z += euler.z * FMath::Deg2Rad;
-
-	//XMFLOAT3 local = XMFLOAT3(
-	//	vertexList[index].x * FMath::Cos(alphaY) - vertexList[index].z * FMath::Sin(alphaY),// * FMath::Cos(spher.z),
-	//	vertexList[index].y,//spher.x * FMath::Sin(spher.y) * FMath::Sin(spher.z),
-	//	vertexList[index].x * FMath::Sin(alphaY) + vertexList[index].z * FMath::Cos(alphaY)// * FMath::Sin(alphaY)// * FMath::Sin(spher.z)
-	//); 
-
- //	return local;
-}
-
-void G3DModel::SetEulerAngle(float x, float y, float z) {
-	eulerAngle.x = x;
-	eulerAngle.y = y;
-	eulerAngle.z = z;
-
-	XMFLOAT3 yawPithRoll = XMFLOAT3(eulerAngle.y, eulerAngle.z, eulerAngle.x);
-
-	//lookAtVector = RotateZ(RotateY(lookAtVector, eulerAngle.y * FMath::Deg2Rad - basicLookRot.y), eulerAngle.z * FMath::Deg2Rad - basicLookRot.z);
-	float sinPith = FMath::Sin_Deg(yawPithRoll.x / 2), cosPith = FMath::Cos_Deg(yawPithRoll.x / 2);
-	float sinYaw = FMath::Sin_Deg(yawPithRoll.y / 2), cosYaw = FMath::Cos_Deg(yawPithRoll.y / 2);
-	float sinRoll = FMath::Sin_Deg(yawPithRoll.z / 2), cosRoll = FMath::Cos_Deg(yawPithRoll.z / 2);
-
-	XMVECTOR q = XMLoadFloat4(new XMFLOAT4(
-		sinRoll * cosPith * cosYaw - cosRoll * sinPith * sinYaw,
-		cosRoll * sinPith * cosYaw + sinRoll * cosPith * sinYaw,
-		cosRoll * cosPith * sinYaw - sinRoll * sinPith * cosYaw,
-		cosRoll * cosPith * cosYaw + sinRoll * sinPith * sinYaw
-	));
-
-	XMStoreFloat3(&lookAtVector, XMVector3Rotate(XMLoadFloat3(&lookAtVector), q));
-
+bool G3DModel::UpdateVertexBuffer() {
 	VertexType* vertices = new	VertexType[vertexCount];
 	if (!vertices)
-		return;
+		return false;
 
-	vertices[0] = { ChangeToSphericalCoord(0), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
-	vertices[1] = { ChangeToSphericalCoord(1), XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f) };
-	vertices[2] = { ChangeToSphericalCoord(2), XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f) };
-	vertices[3] = { ChangeToSphericalCoord(3), XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f) };
-	vertices[4] = { ChangeToSphericalCoord(4), XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f) };
-	vertices[5] = { ChangeToSphericalCoord(5), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f) };
-	vertices[6] = { ChangeToSphericalCoord(6), XMFLOAT4(0.5f, 1.0f, 0.5f, 1.0f) };
-	vertices[7] = { ChangeToSphericalCoord(7), XMFLOAT4(0.25f, 0.0f, 0.75f, 1.0f) };
+	for (int i = 0; i < vertexCount; i++) {
+		// Scale
+		vertices[i].position = GetScaleVector(vertexList[i].position);
+		// Rotation
+		vertices[i].position = GetRotationVector(vertices[i].position);
+		// Translation
+		vertices[i].position += position;
+	}
 
 	size_t stride = sizeof(VertexType);
 	size_t offset = 0;
@@ -304,17 +213,76 @@ void G3DModel::SetEulerAngle(float x, float y, float z) {
 	vertexData.SysMemSlicePitch = 0;
 
 	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer)))
-		return;
+		return false;
 
 	delete[] vertices;
 	vertices = nullptr;
+	
+	return true;
+}
+
+
+FVector3 G3DModel::GetRotationVector(const FVector3& v) {
+	FQuaternion quat = FQuaternion::Euler(v);
+
+	XMFLOAT3 local;
+	XMStoreFloat3(&local, XMVector3Rotate(XMLoadFloat3(&v.DXFloat3()), quat.DXVector()));
+
+	return FVector3(local.x, local.y, local.z);
+}
+
+void G3DModel::SetEulerAngle(float x, float y, float z) {
+	eulerAngle.x = x;
+	eulerAngle.y = y;
+	eulerAngle.z = z;
+
+	FVector3 yawPithRoll = FVector3(eulerAngle.y, eulerAngle.z, eulerAngle.x);
+
+	FQuaternion quat = FQuaternion::Euler(yawPithRoll);
+
+	/*float sinPith = FMath::Sin_Deg(yawPithRoll.x / 2), cosPith = FMath::Cos_Deg(yawPithRoll.x / 2);
+	float sinYaw = FMath::Sin_Deg(yawPithRoll.y / 2), cosYaw = FMath::Cos_Deg(yawPithRoll.y / 2);
+	float sinRoll = FMath::Sin_Deg(yawPithRoll.z / 2), cosRoll = FMath::Cos_Deg(yawPithRoll.z / 2);*/
+
+	/*XMVECTOR q = XMLoadFloat4(new XMFLOAT4(
+		sinRoll * cosPith * cosYaw - cosRoll * sinPith * sinYaw,
+		cosRoll * sinPith * cosYaw + sinRoll * cosPith * sinYaw,
+		cosRoll * cosPith * sinYaw - sinRoll * sinPith * cosYaw,
+		cosRoll * cosPith * cosYaw + sinRoll * sinPith * sinYaw
+	));*/
+
+	XMStoreFloat3(&lookAtVector.DXFloat3(), XMVector3Rotate(XMLoadFloat3(&lookAtVector.DXFloat3()), quat.DXVector()));
+
+	UpdateVertexBuffer();
+}
+
+void G3DModel::SetEulerAngle(const FVector3& angles) {
+	SetEulerAngle(angles.x, angles.y, angles.z);
 }
 
 void G3DModel::SetEulerAngle(XMFLOAT3 angles) {
 	SetEulerAngle(angles.x, angles.y, angles.z);
 }
 
-
-XMFLOAT3 G3DModel::GetEulerAngle() const {
+FEulerAngle G3DModel::GetEulerAngle() const {
 	return eulerAngle;
+}
+
+
+FVector3 G3DModel::GetScaleVector(const FVector3& v) {
+
+	FVector3 targetPos = v;
+	FVector3 dir = (targetPos - position).Normalized();
+
+	dir *= localScale;
+
+	return position + dir;
+}
+
+void G3DModel::SetLocalScale(float x, float y, float z) {
+	localScale.x = x;
+	localScale.y = y;
+	localScale.z = z;
+
+	UpdateVertexBuffer();
 }

@@ -156,7 +156,7 @@ void GTextureShader::ShutdownShader() {
 }
 
 
-bool GTextureShader::SetShaderParameters(XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat) {
+bool GTextureShader::SetShaderParameters(XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat, ID3D11ShaderResourceView* texture) {
 	// 행렬을 Transpose하여 쉐이더에서 사용가능하도록 함
 	worldMat = XMMatrixTranspose(worldMat);
 	viewMat = XMMatrixTranspose(viewMat);
@@ -179,16 +179,18 @@ bool GTextureShader::SetShaderParameters(XMMATRIX worldMat, XMMATRIX viewMat, XM
 	deviceContext->Unmap(matrixBuffer, 0);
 
 	// 정점 쉐이더에서의 상수 버퍼 위치 설정
-	unsigned bufferNumber = 0;
+	UINT bufferNumber = 0;
 
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
+
+	deviceContext->PSGetShaderResources(0, 1, &texture);
 
 	return true;
 }
 
-bool GTextureShader::Render(XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat, int indexCount) {
+bool GTextureShader::Render(XMMATRIX worldMat, XMMATRIX viewMat, XMMATRIX projectionMat, int indexCount, ID3D11ShaderResourceView* texture) {
 
-	if (!SetShaderParameters(worldMat, viewMat, projectionMat))
+	if (!SetShaderParameters(worldMat, viewMat, projectionMat, texture))
 		return false;
 
 	// 정점 입력 레이아웃 설정

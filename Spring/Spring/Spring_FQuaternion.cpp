@@ -36,7 +36,7 @@ FQuaternion FQuaternion::Euler(const FVector3& v) {
 }
 
 FQuaternion FQuaternion::Euler(float _x, float _y, float _z) {
-	XMFLOAT3 yawRollPith = XMFLOAT3(_y, _z, _x);
+	FVector3 yawRollPith = FVector3(_y, _z, _x);
 
 	float sinPith = FMath::Sin_Deg(yawRollPith.x / 2), cosPith = FMath::Cos_Deg(yawRollPith.x / 2);
 	float sinYaw = FMath::Sin_Deg(yawRollPith.y / 2), cosYaw = FMath::Cos_Deg(yawRollPith.y / 2);

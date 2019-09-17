@@ -1,5 +1,5 @@
-Texture2D shaderTex;
-SamplerState sampleType;
+Texture2D shaderTexure;
+SamplerState SampleType;
 
 struct PixelInputType {
 	float4 position : SV_POSITION;
@@ -7,9 +7,9 @@ struct PixelInputType {
 };
 
 
-float4 TexturePixelShader(PixelInputType input) : SV_TARGET{
+float4 TexturePixelShader(PixelInputType input) : SV_TARGET {
 	float4 texColor
-		= shaderTex.Sample(sampleType, input.tex);
+		= shaderTexure.Sample(SampleType, input.tex);
 
-	return texColor;
+return texColor;//float4(texColor.r, texColor.r, texColor.r, texColor.r);
 }

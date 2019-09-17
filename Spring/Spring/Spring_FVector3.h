@@ -10,7 +10,7 @@ namespace spring {
 	class FVector3 {
 
 	public:
-		IProperty<float, EIPropertySetting::GET> x, y, z;
+		IProperty<float, EIPropertySetting::GET_SET> x, y, z;
 
 	public:
 		FVector3(float = 0.0f, float = 0.0f, float = 0.0f);
@@ -24,11 +24,20 @@ namespace spring {
 		FVector3& operator=(const FVector3&);
 
 		FVector3& operator+(const FVector3&);
+		FVector3& operator+=(const FVector3&);
+
 		FVector3& operator-(const FVector3&);
+		FVector3& operator-=(const FVector3&);
+
 		FVector3& operator*(const FVector3&);
 		FVector3& operator*(float);
+		FVector3& operator*=(const FVector3&);
+		FVector3& operator*=(float);
+
 		FVector3& operator/(const FVector3&);
 		FVector3& operator/(float);
+		FVector3& operator/=(const FVector3&);
+		FVector3& operator/=(float);
 
 	public:
 		float Magnitude() const;

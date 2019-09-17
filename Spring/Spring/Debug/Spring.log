@@ -1,20 +1,5 @@
-﻿  Spring.cpp
+﻿  Spring_GRenderSystem.cpp
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(82,6): warning C4101:  'msg' :참조되지 않은 지역 변수입니다.
-  Spring_CTransform.cpp
-  Spring_FMatrix4x4.cpp
-  Spring_GRenderSystem.cpp
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(214,5): warning C4065:  switch문에 'default'가 있으나 'case' 레이블이 없습니다.
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring.cpp(214,5): warning C4065: C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(20,34): warning C4244:  '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Spring_UCamera.cpp
-  Spring_UGameEngine.cpp
-  Spring_UInputBinder.cpp
-  코드를 생성하고 있습니다...
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(20,21): warning C4244:  '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(20,21): warning C4244: C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(20,21): warning C4244: C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(20,21): warning C4244: C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_UInputBinder.cpp(145) : warning C4715: 'spring::UInputBinder::UpdateInput': 모든 제어 경로에서 값을 반환하지는 않습니다.
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(20,21): warning C4244: C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_UGameEngine.cpp(85) : warning C4715: 'spring::UGameEngine::InitializeGame': 모든 제어 경로에서 값을 반환하지는 않습니다.
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(20,21): warning C4244: C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_UInputBinder.h(159) : warning C4717: 'spring::UInputBinder::InputFuncInfo::AddInputFuncInfo': 모든 제어 경로에서 재귀적입니다. 함수로 인해 런타임 스택 오버플로가 발생합니다.
+C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(21,34): warning C4244:  '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(21,21): warning C4244:  '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Spring.vcxproj -> C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring.exe

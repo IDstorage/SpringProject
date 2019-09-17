@@ -1,5 +1,6 @@
 #include "Spring_GRenderSystem.h"
 #include "Spring_GColorShader.h"
+#include "Spring_GTextureShader.h"
 #include "Spring_UGameEngine.h"
 
 using namespace DirectX;
@@ -28,10 +29,23 @@ void GRenderSystem::Initialize(int screenWidth, int screenHeight, HWND hWnd) {
 		return; 
 
 	testModel = new G3DModel();
-	testModel->Initialize(d3dClass->GetDevice(), d3dClass->GetDeviceContext());
+	char filePath[] = "./test_texture.tga";
+	testModel->Initialize({
+			G3DModel::VertexType { FVector3(-1.0f, -1.0f, 0.0f), FVector2(0.0f, 1.0f) },
+			G3DModel::VertexType { FVector3(0.0f, 1.0f, 0.0f), FVector2(0.5f, 0.0f) },
+			G3DModel::VertexType { FVector3(1.0f, -1.0f, 0.0f), FVector2(1.0f, 1.0f) }
+		}, {
+			0, 1, 2
+		},
+		filePath);
 
-	if (!GColorShader::GetInstance()->Initialize(d3dClass->GetDevice(), d3dClass->GetDeviceContext(), hWnd))
+	if (!GTextureShader::GetInstance()->Initialize(d3dClass->GetDevice(), d3dClass->GetDeviceContext(), hWnd))
 		return;
+}
+
+
+GD3DClass* GRenderSystem::GetD3DClass() const {
+	return d3dClass;
 }
 
 
@@ -47,9 +61,10 @@ void GRenderSystem::Render() {
 	spring::GEngine->GetMainCamera()->GetViewMatrix(viewMatrix);
 	d3dClass->GetProjectionMatrix(projectionMatrix);
 
-	testModel->Render(d3dClass->GetDeviceContext());
+	testModel->Render();
 
-	GColorShader::GetInstance()->Render(worldMatrix, viewMatrix, projectionMatrix, testModel->GetIndexCount());
+	if (!GTextureShader::GetInstance()->Render(worldMatrix, viewMatrix, projectionMatrix, testModel->GetIndexCount(), testModel->GetTexture()))
+		return;
 
 	d3dClass->EndScene(); 
 }
@@ -73,7 +88,7 @@ void GRenderSystem::SetModelRot(XMFLOAT3 e) {
 }
 
 XMFLOAT3 GRenderSystem::GetRot() const {
-	return testModel->GetEulerAngle();
+	return testModel->GetEulerAngle().DXFloat3();
 }
 
 
