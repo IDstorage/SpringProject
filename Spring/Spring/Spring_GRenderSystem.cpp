@@ -31,9 +31,9 @@ void GRenderSystem::Initialize(int screenWidth, int screenHeight, HWND hWnd) {
 	testModel = new G3DModel();
 	char filePath[] = "./test_texture.tga";
 	testModel->Initialize({
-			G3DModel::VertexType { FVector3(-1.0f, -1.0f, 0.0f), FVector2(0.0f, 1.0f) },
-			G3DModel::VertexType { FVector3(0.0f, 1.0f, 0.0f), FVector2(0.5f, 0.0f) },
-			G3DModel::VertexType { FVector3(1.0f, -1.0f, 0.0f), FVector2(1.0f, 1.0f) }
+			G3DModel::VertexType { XMFLOAT3(-1.0f, -1.0f, 0.0f), XMFLOAT2(0.0f, 1.0f) },
+			G3DModel::VertexType { XMFLOAT3(0.0f, 1.0f, 0.0f), XMFLOAT2(0.5f, 0.0f) },
+			G3DModel::VertexType { XMFLOAT3(1.0f, -1.0f, 0.0f), XMFLOAT2(1.0f, 1.0f) }
 		}, {
 			0, 1, 2
 		},

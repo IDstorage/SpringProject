@@ -1,5 +1,2 @@
-﻿  Spring_GRenderSystem.cpp
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(21,34): warning C4244:  '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Spring\Spring_GRenderSystem.cpp(21,21): warning C4244:  '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  Spring_GTextureShader.cpp
   Spring.vcxproj -> C:\Users\Minjong\Desktop\SpringProject\Git\Spring\Debug\Spring.exe

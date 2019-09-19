@@ -18,8 +18,8 @@ namespace spring {
 
 	public:
 		struct VertexType {
-			FVector3 position;
-			FVector2 texture;
+			DirectX::XMFLOAT3 position;
+			DirectX::XMFLOAT2 texture;
 		};
 
 	public:

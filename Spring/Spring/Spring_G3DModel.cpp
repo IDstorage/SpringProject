@@ -36,7 +36,13 @@ bool G3DModel::Initialize(const G3DModel::VertexListType& vList, const G3DModel:
 	for (int i = 0; i < vertexCount; i++) {
 		vertices[i] = *(vertexList.begin() + i);
 
-		vertices[i].position += position;//FVector3(vertices[i].position.x + position.x, vertices[i].position.y + position.y, vertices[i].position.z + position.z);
+		vertices[i].position =
+			XMFLOAT3(vertices[i].position.x + position.x,
+				vertices[i].position.y + position.y,
+				vertices[i].position.z + position.z);
+				
+				
+		//FVector3(vertices[i].position.x + position.x, vertices[i].position.y + position.y, vertices[i].position.z + position.z);
 
 		//float basicRad = vertices[i].position.Magnitude();
 
@@ -184,11 +190,11 @@ bool G3DModel::UpdateVertexBuffer() {
 
 	for (int i = 0; i < vertexCount; i++) {
 		// Scale
-		vertices[i].position = GetScaleVector(vertexList[i].position);
+		vertices[i].position = GetScaleVector(FVector3(vertexList[i].position)).DXFloat3();
 		// Rotation
-		vertices[i].position = GetRotationVector(vertices[i].position);
+		vertices[i].position = GetRotationVector(FVector3(vertices[i].position)).DXFloat3();
 		// Translation
-		vertices[i].position += position;
+		//vertices[i].position += position;
 	}
 
 	size_t stride = sizeof(VertexType);

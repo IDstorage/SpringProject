@@ -20,6 +20,9 @@ IProperty<FVector3, EIPropertySetting::GET> FVector3::backward = FVector3(0.0f, 
 FVector3::FVector3(float _x, float _y, float _z)
 	: x(_x), y(_y), z(_z) {}
 
+FVector3::FVector3(XMFLOAT3 v)
+	: x(v.x), y(v.y), z(v.z) {}
+
 FVector3::FVector3(const FVector3& v)
 	: x(v.x), y(v.y), z(v.z) {}
 

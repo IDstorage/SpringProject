@@ -183,7 +183,8 @@ bool GTextureShader::SetShaderParameters(XMMATRIX worldMat, XMMATRIX viewMat, XM
 
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &matrixBuffer);
 
-	deviceContext->PSGetShaderResources(0, 1, &texture);
+	deviceContext->PSSetShaderResources(0, 1, &texture);
+	//deviceContext->PSGetShaderResources(0, 1, &texture);
 
 	return true;
 }

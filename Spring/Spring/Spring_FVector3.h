@@ -14,6 +14,7 @@ namespace spring {
 
 	public:
 		FVector3(float = 0.0f, float = 0.0f, float = 0.0f);
+		FVector3(DirectX::XMFLOAT3);
 		FVector3(const FVector3&);
 
 	public:
