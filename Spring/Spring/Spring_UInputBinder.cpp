@@ -131,6 +131,16 @@ void UInputBinder::ShutdownInput() {
 }
 
 
+void UInputBinder::BindAction(EKeyCode code, IHotKeyStruct hotkey, EKeyState state, INPUT_BIND_FUNC func) {
+	if (keyMap.find(code) == keyMap.end()) {
+		keyMap[code] = new InputFuncInfo(func, state, hotkey);
+		return;
+	}
+
+	keyMap[code]->AddInputFuncInfo(new InputFuncInfo(func, state, hotkey));
+}
+
+
 bool UInputBinder::ReadKeyboard() {
 	if (keyboard == nullptr)
 		return false;
@@ -193,9 +203,11 @@ bool UInputBinder::UpdateInput() {
 		// Press Function
 		if ((previousState == false) && (currentState == true))
 			info->Execute(info->CanTrigger(currentHotkey, EKeyState::KS_PRESS));
+
 		// Hold Function
 		else if ((previousState == true) && (currentState == true))
 			info->Execute(info->CanTrigger(currentHotkey, EKeyState::KS_HOLD));
+
 		// Release Function
 		else if ((previousState == true) && (currentState == false))
 			info->Execute(info->CanTrigger(currentHotkey, EKeyState::KS_RELEASE));

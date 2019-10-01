@@ -146,14 +146,7 @@ namespace spring {
 		}
 
 	public:
-		void BindAction(EKeyCode code, IHotKeyStruct hotkey, EKeyState state, INPUT_BIND_FUNC func) {
-			if (keyMap.find(code) == keyMap.end()) {
-				keyMap[code] = new InputFuncInfo(func, state, hotkey);
-				return;
-			}
-
-			keyMap[code]->AddInputFuncInfo(new InputFuncInfo(func, state, hotkey));
-		}
+		void BindAction(EKeyCode, IHotKeyStruct, EKeyState, INPUT_BIND_FUNC);
 
 	private:
 		bool ReadKeyboard();

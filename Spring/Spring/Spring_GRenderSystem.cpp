@@ -33,9 +33,13 @@ void GRenderSystem::Initialize(int screenWidth, int screenHeight, HWND hWnd) {
 	testModel->Initialize({
 			G3DModel::VertexType { XMFLOAT3(-1.0f, -1.0f, 0.0f), XMFLOAT2(0.0f, 1.0f) },
 			G3DModel::VertexType { XMFLOAT3(0.0f, 1.0f, 0.0f), XMFLOAT2(0.5f, 0.0f) },
-			G3DModel::VertexType { XMFLOAT3(1.0f, -1.0f, 0.0f), XMFLOAT2(1.0f, 1.0f) }
+			G3DModel::VertexType { XMFLOAT3(1.0f, -1.0f, 0.0f), XMFLOAT2(0.5f, 0.5f) },
+			G3DModel::VertexType { XMFLOAT3(0.75f, -1.75f, 0.0f), XMFLOAT2(0.5f, 1.0f) },
+			G3DModel::VertexType { XMFLOAT3(0.25f, -1.5f, 0.0f), XMFLOAT2(1.0f, 1.0f) }
 		}, {
-			0, 1, 2
+			0, 1, 2,
+			2, 3, 4,
+			2, 4, 0
 		},
 		filePath);
 
