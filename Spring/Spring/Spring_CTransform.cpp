@@ -60,6 +60,15 @@ void CTransform::UpdateMatrix() {
 	transformMatrix = transformMatrix * FMatrix4x4::GetTranslateMatrix(position); 
 }
 
+void CTransform::BeginUpdate() {
+
+	previousPosition = position;
+	previousEulerAngle = eulerAngle;
+	previousLocalScale = localScale;
+
+}
+
+
 FMatrix4x4 CTransform::GetTransformMatrix() {
 	UpdateMatrix();
 	return transformMatrix;

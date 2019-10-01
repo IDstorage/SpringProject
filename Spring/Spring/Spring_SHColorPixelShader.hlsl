@@ -4,8 +4,9 @@ struct PixelInput {
 };
 
 
-float4 ColorPixelShader(PixelInput input) : SV_TARGET {
-	return input.color;
+float4 ColorPixelShader(PixelInput input) : SV_TARGET{
+	float avg = 0.0f;// (input.color.r + input.color.g + input.color.b) / 3.0f;
+	return float4(avg, avg, avg, 1.0f);
 }
 
 

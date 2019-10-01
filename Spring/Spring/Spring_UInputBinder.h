@@ -112,64 +112,25 @@ namespace spring {
 			EKeyState prevState;
 
 		public:
-			InputFuncInfo(INPUT_BIND_FUNC func, EKeyState state, IHotKeyStruct hotkey)
-				: keyFunction(func), trigState(state), trigHotKey(hotkey), prevState(EKeyState::KS_RELEASE), nextInfo(nullptr) {}
+			InputFuncInfo(INPUT_BIND_FUNC, EKeyState, IHotKeyStruct);
 
 		public:
-			int CanTrigger(IHotKeyStruct hotkey, EKeyState state) {
-				InputFuncInfo* head = this;
-				int n = 0;
+			int CanTrigger(IHotKeyStruct, EKeyState);
 
-				while (head != nullptr) {
-					if (state == trigState
-						&& (hotkey.isLeftShift == trigHotKey.isLeftShift
-							&& hotkey.isLeftCtrl == trigHotKey.isLeftCtrl
-							&& hotkey.isLeftAlt == trigHotKey.isLeftAlt))
-						return n;
-
-					head = head->nextInfo;
-					n++;
-				}
-
-				return -1;
-			}
-
-			void Execute(int index) {
-				if (index == -1)
-					return;
-
-				InputFuncInfo* head = this;
-
-				while (index-- > 0)
-					head = head->nextInfo;
-
-				if (head != nullptr)
-					head->keyFunction();
-			}
+			void Execute(int);
 
 		private:
 			InputFuncInfo* nextInfo;
 
 		public:
-			void AddInputFuncInfo(InputFuncInfo* info) {
-				if (nextInfo == nullptr)
-					nextInfo = info;
+			void AddInputFuncInfo(InputFuncInfo*);
 
-				nextInfo->AddInputFuncInfo(info);
-			}
-
-			InputFuncInfo* GetNextInfo() {
-				return nextInfo;
-			}
+			InputFuncInfo* GetNextInfo();
 
 		public:
-			void UpdatePrevState(EKeyState prev) {
-				prevState = prev;
-			}
+			void UpdatePrevState(EKeyState);
 
-			EKeyState GetPreviousState() {
-				return prevState;
-			}
+			EKeyState GetPreviousState() const;
 		};
 
 		std::map<EKeyCode, InputFuncInfo*> keyMap;

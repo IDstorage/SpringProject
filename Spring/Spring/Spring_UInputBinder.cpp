@@ -8,6 +8,67 @@ extern spring::GRenderSystem* spring::Renderer;
 spring::UInputBinder* spring::InputBinder = spring::UInputBinder::MakeInst();
 
 
+#pragma region UInputBinder::InputFuncInfo class
+
+UInputBinder::InputFuncInfo::InputFuncInfo(INPUT_BIND_FUNC func, EKeyState state, IHotKeyStruct hotkey)
+	: keyFunction(func), trigState(state), trigHotKey(hotkey), prevState(EKeyState::KS_RELEASE), nextInfo(nullptr) {}
+
+
+int UInputBinder::InputFuncInfo::CanTrigger(IHotKeyStruct hotkey, EKeyState state) {
+	InputFuncInfo* head = this;
+	int n = 0;
+
+	while (head != nullptr) {
+		if (state == trigState
+			&& (hotkey.isLeftShift == trigHotKey.isLeftShift
+				&& hotkey.isLeftCtrl == trigHotKey.isLeftCtrl
+				&& hotkey.isLeftAlt == trigHotKey.isLeftAlt))
+			return n;
+
+		head = head->nextInfo;
+		n++;
+	}
+
+	return -1;
+}
+
+void UInputBinder::InputFuncInfo::Execute(int index) {
+	if (index == -1)
+		return;
+
+	InputFuncInfo* head = this;
+
+	while (index-- > 0)
+		head = head->nextInfo;
+
+	if (head != nullptr)
+		head->keyFunction();
+}
+
+
+void UInputBinder::InputFuncInfo::AddInputFuncInfo(UInputBinder::InputFuncInfo* info) {
+	if (nextInfo == nullptr)
+		nextInfo = info;
+
+	nextInfo->AddInputFuncInfo(info);
+}
+
+UInputBinder::InputFuncInfo* UInputBinder::InputFuncInfo::GetNextInfo() {
+	return nextInfo;
+}
+
+
+void UInputBinder::InputFuncInfo::UpdatePrevState(EKeyState prev) {
+	prevState = prev;
+}
+
+EKeyState UInputBinder::InputFuncInfo::GetPreviousState() const {
+	return prevState;
+}
+
+#pragma endregion
+
+
 UInputBinder::UInputBinder() : dxInput(nullptr), keyboard(nullptr), mouse(nullptr) {}
 
 

@@ -123,6 +123,9 @@
     <ClInclude Include="Spring_GTexture.h">
       <Filter>헤더 파일\Spring\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Spring_CSpriteRenderer.h">
+      <Filter>헤더 파일\Spring\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spring.rc">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="Spring_GTexture.cpp">
       <Filter>소스 파일\Spring\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Spring_CSpriteRenderer.cpp">
+      <Filter>소스 파일\Spring\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

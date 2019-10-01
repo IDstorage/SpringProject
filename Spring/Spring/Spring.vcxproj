@@ -159,6 +159,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spring.h" />
+    <ClInclude Include="Spring_CSpriteRenderer.h" />
     <ClInclude Include="Spring_FQuaternion.h" />
     <ClInclude Include="Spring_FVector3.h" />
     <ClInclude Include="Spring_GTexture.h" />
@@ -205,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Spring.cpp" />
+    <ClCompile Include="Spring_CSpriteRenderer.cpp" />
     <ClCompile Include="Spring_CTransform.cpp" />
     <ClCompile Include="Spring_FMatrix4x4.cpp" />
     <ClCompile Include="Spring_FQuaternion.cpp" />

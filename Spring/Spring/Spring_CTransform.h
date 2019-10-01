@@ -19,11 +19,19 @@ namespace spring {
 		FVector3 eulerAngle;
 		FVector3 localScale;
 
+		// Update when rendering
+		FVector3 previousPosition;
+		FVector3 previousEulerAngle;
+		FVector3 previousLocalScale;
+
 	public:
 		virtual void Init() override;
 
 	private:
 		void UpdateMatrix();
+
+	public:
+		void BeginUpdate() override;
 
 	public:
 		void SetPosition(const FVector3&);

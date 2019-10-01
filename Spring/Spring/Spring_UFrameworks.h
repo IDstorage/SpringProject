@@ -13,7 +13,7 @@ namespace spring {
 	class ULayer;
 
 
-	class URef {
+	class IRef {
 
 	protected:
 		int refCount = 0;
@@ -32,7 +32,7 @@ namespace spring {
 	};
 
 
-	class UScene : public URef {
+	class UScene : public IRef {
 
 	protected:
 		UScene() = default;
@@ -69,7 +69,7 @@ namespace spring {
 	};
 
 
-	class ULayer : public URef {
+	class ULayer : public IRef {
 
 	protected:
 		ULayer() = default;
@@ -118,7 +118,7 @@ namespace spring {
 	};
 
 	class CTransform;
-	class UObject : public URef {
+	class UObject : public IRef {
 
 	protected:
 		UObject() = default;
@@ -177,7 +177,7 @@ namespace spring {
 	};
 
 
-	class UComponent : public URef {
+	class UComponent : public IRef {
 
 	protected:
 		UComponent() = default;
@@ -199,7 +199,7 @@ namespace spring {
 		virtual void Update();
 		virtual void EndUpdate();
 
-		virtual void Render() final;
+		virtual void Render();
 
 		virtual void Release();
 

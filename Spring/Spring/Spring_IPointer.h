@@ -5,7 +5,7 @@
 namespace spring {
 
 	// IPointer's basic object type
-	class URef;
+	class IRef;
 
 	template <class _Typ>
 	class IPointer {
@@ -46,11 +46,11 @@ namespace spring {
 		}
 
 	private:
-		URef* object = nullptr;
+		IRef* object = nullptr;
 
 	public:
 		IPointer<_Typ>& operator=(_Typ* obj) {
-			this->object = reinterpret_cast<URef*>(obj);
+			this->object = reinterpret_cast<IRef*>(obj);
 			obj->PlusRefCount(1);
 			return *this;
 		}

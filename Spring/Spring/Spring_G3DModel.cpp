@@ -143,6 +143,8 @@ bool G3DModel::Initialize(const G3DModel::VertexListType& vList, const G3DModel:
 }
 
 void G3DModel::Release() {
+	ReleaseTexture();
+
 	if (indexBuffer) {
 		indexBuffer->Release();
 		indexBuffer = nullptr;

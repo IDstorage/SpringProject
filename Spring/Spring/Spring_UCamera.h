@@ -12,7 +12,7 @@
 
 namespace spring {
 
-	class UCamera : public URef, public IAlignedAllocationPolicy<16> {
+	class UCamera : public IRef, public IAlignedAllocationPolicy<16> {
 
 	private:
 		std::string cameraName;
